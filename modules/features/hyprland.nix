@@ -21,7 +21,8 @@
     }:
     {
       packages.hyprland =
-        lib.extendDerivation true inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland.passthru
+        lib.extendDerivation true
+          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland.passthru
           (
             inputs.wrapper-modules.lib.wrapPackage (
               { ... }:
@@ -59,7 +60,9 @@
             )
           );
 
-      packages.xdg-desktop-portal-hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-      packages.hyprshutdown = inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.hyprshutdown;
+      packages.xdg-desktop-portal-hyprland =
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      packages.hyprshutdown =
+        inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.hyprshutdown;
     };
 }
