@@ -30,10 +30,10 @@
             inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
             self'.packages.hypridle
             hyprshutdown
+            self'.packages.hyprsunset
             hyprpicker
             cliphist
             wl-clipboard
-            # TODO: hyprsunset
             # TODO: dunst
             # TODO: quickshell
             # TODO: gtk?
