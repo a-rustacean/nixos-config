@@ -89,6 +89,27 @@
         "type": "github"
       }
     },
+    "helix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1779860185,
+        "narHash": "sha256-q7dYVnj0gGD3r2RPB3/M8PFIkeX/LyVACGcA7Cyh5cE=",
+        "owner": "helix-editor",
+        "repo": "helix",
+        "rev": "6c48d18e0fc329d89b73b5287ff5dc75a2e81534",
+        "type": "github"
+      },
+      "original": {
+        "owner": "helix-editor",
+        "repo": "helix",
+        "type": "github"
+      }
+    },
     "hyprcursor": {
       "inputs": {
         "hyprlang": [
@@ -655,6 +676,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "helix": "helix",
         "hypridle": "hypridle",
         "hyprland": "hyprland",
         "hyprlock": "hyprlock",
@@ -663,6 +685,27 @@
         "import-tree": "import-tree",
         "nixpkgs": "nixpkgs",
         "wrapper-modules": "wrapper-modules"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "helix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775358767,
+        "narHash": "sha256-f2eC+WIfhjevCPQILuV08i/kmKZzYZpUvkom/33VxCA=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "20fd44bc663daa53a2575e01293e24e681d62244",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "systems": {

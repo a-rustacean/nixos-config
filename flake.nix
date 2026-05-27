@@ -60,6 +60,11 @@
       inputs.hyprutils.follows = "hyprland/hyprutils";
       inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
     };
+
+    helix = {
+      url = "github:helix-editor/helix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
