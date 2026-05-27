@@ -1,0 +1,22 @@
+# Roadmap
+
+- [x] Hyprland
+- [x] Hyprpaper
+- [x] Hypridle
+- [x] Hyprlock
+- [x] Hyprsunset
+- [ ] Hyprtoolkit
+- [ ] Hyprshutdown
+- [ ] Hyprcursor
+- [ ] Hyprlauncher
+- [x] Quickshell
+- [x] ZSH
+- [x] Alacritty
+- [x] Helix
+- [ ] Zen Browser (hardest one here prolly)
+- [ ] Dunst
+- [ ] Git
+- [ ] GitUI
+- [ ] Mac support
+- [ ] Aerospace? (WM for Mac)
+- [ ] Replace [dotfiles](https://github.com/a-rustacean/dotfiles)
