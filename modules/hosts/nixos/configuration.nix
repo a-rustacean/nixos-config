@@ -72,7 +72,7 @@
           "wheel"
         ];
         packages = [ ];
-        shell = pkgs.zsh;
+        shell = self.packages.${pkgs.stdenv.hostPlatform.system}.zsh;
         initialPassword = "dilshad"; # username is the default password
       };
 
