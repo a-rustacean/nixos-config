@@ -82,6 +82,7 @@
 
       environment.systemPackages = [
         self.packages.${pkgs.stdenv.hostPlatform.system}.helix
+        self.packages.${pkgs.stdenv.hostPlatform.system}.git
       ];
 
       services.openssh.enable = true;
