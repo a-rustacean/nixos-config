@@ -17,8 +17,7 @@ hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- TODO: get hyprshutdown from config
 hl.bind(mainMod .. " + ALT + Q",
   hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
--- TODO: get hyprlock from config
-hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exec_cmd(config.programs.hyprlock))
 hl.bind(mainMod .. " + O", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(config.programs.rofi .. " -show drun"))
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))
