@@ -1,6 +1,5 @@
 require("monitors")
 require("autostart")
-require("env")
 require("animations")
 require("keybinds")
 
