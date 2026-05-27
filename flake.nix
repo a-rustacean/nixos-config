@@ -17,7 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # honestly, this feels wrong, maybe a better way to use all hypr* pkgs
     hypridle = {
       url = "github:hyprwm/hypridle";
       inputs.nixpkgs.follows = "nixpkgs";
