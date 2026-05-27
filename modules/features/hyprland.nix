@@ -50,6 +50,10 @@
                   HYPRLAND_ROFI_EXE = lib.getExe pkgs.rofi; # TODO: configure rofi
                   HYPRLAND_HYPRPAPER_EXE = lib.getExe self'.packages.hyprpaper;
                   HYPRLAND_QUICKSHELL_EXE = lib.getExe self'.packages.quickshell;
+                  # TODO: use hyprcursor
+                  XCURSOR_PATH = "${pkgs.capitaine-cursors}/share/icons";
+                  XCURSOR_THEME = "capitaine-cursors";
+                  XCURSOR_SIZE = "24";
                 };
               }
             )
