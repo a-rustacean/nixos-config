@@ -4,8 +4,6 @@
 
 local config = require("config");
 
--- local terminal     = os.getenv("HYPRLAND_TERMINAL") or "alacritty"
--- local menu         = os.getenv("HYPRLAND_MENU") or "rofi -show drun"
 local enableArrows = true
 local movementKeys = { "H", "J", "K", "L" };
 local directions   = { "left", "down", "up", "right" }
