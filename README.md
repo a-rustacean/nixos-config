@@ -1,1 +1,1 @@
-[Roadmap](issues/1)
+[Roadmap](https://github.com/a-rustacean/nixos-config/issues/1)
