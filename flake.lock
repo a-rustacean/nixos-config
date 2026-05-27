@@ -433,6 +433,47 @@
         "type": "github"
       }
     },
+    "hyprshutdown": {
+      "inputs": {
+        "aquamarine": [
+          "hyprland",
+          "aquamarine"
+        ],
+        "hyprgraphics": [
+          "hyprland",
+          "hyprgraphics"
+        ],
+        "hyprtoolkit": [
+          "hyprland",
+          "hyprland-guiutils",
+          "hyprtoolkit"
+        ],
+        "hyprutils": [
+          "hyprland",
+          "hyprutils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "hyprland",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778610771,
+        "narHash": "sha256-msCMXV9k9+1siOPaxSzNJwx/o8pn2srCR4h0pxyW/WE=",
+        "owner": "hyprwm",
+        "repo": "hyprshutdown",
+        "rev": "db1f38b03b173984ae9ed3abeb9750583c9bbd91",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyprwm",
+        "repo": "hyprshutdown",
+        "type": "github"
+      }
+    },
     "hyprsunset": {
       "inputs": {
         "hyprland-protocols": [
@@ -681,6 +722,7 @@
         "hyprland": "hyprland",
         "hyprlock": "hyprlock",
         "hyprpaper": "hyprpaper",
+        "hyprshutdown": "hyprshutdown",
         "hyprsunset": "hyprsunset",
         "import-tree": "import-tree",
         "nixpkgs": "nixpkgs",

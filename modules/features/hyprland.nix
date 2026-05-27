@@ -40,7 +40,6 @@
                   # TODO: gtk?
                   # TODO: cursor
                   # TODO: dunst
-                  # TODO: hyprshutdown
                 ];
                 flags = {
                   "--config" = "${../../hyprland}/hyprland.lua";
@@ -50,6 +49,7 @@
                   HYPRLAND_PROGRAM_ROFI = lib.getExe pkgs.rofi; # TODO: use hyprlauncher
                   HYPRLAND_PROGRAM_HYPRPAPER = lib.getExe self'.packages.hyprpaper;
                   HYPRLAND_PROGRAM_HYPRLOCK = lib.getExe self'.packages.hyprlock;
+                  HYPRLAND_PROGRAM_HYPRSHUTDOWN = lib.getExe inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.hyprshutdown;
                   HYPRLAND_PROGRAM_QUICKSHELL = lib.getExe self'.packages.quickshell;
                   # TODO: use hyprcursor
                   XCURSOR_PATH = "${pkgs.capitaine-cursors}/share/icons";

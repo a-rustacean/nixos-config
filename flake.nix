@@ -61,6 +61,16 @@
       inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
     };
 
+    hyprshutdown = {
+      url = "github:hyprwm/hyprshutdown";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "hyprland/systems";
+      inputs.aquamarine.follows = "hyprland/aquamarine";
+      inputs.hyprgraphics.follows = "hyprland/hyprgraphics";
+      inputs.hyprtoolkit.follows = "hyprland/hyprland-guiutils/hyprtoolkit";
+      inputs.hyprutils.follows = "hyprland/hyprutils";
+    };
+
     helix = {
       url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "nixpkgs";

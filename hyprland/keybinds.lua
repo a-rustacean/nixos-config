@@ -12,9 +12,7 @@ local mainMod      = "SUPER"
 
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(config.programs.alacritty))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
--- TODO: get hyprshutdown from config
-hl.bind(mainMod .. " + ALT + Q",
-  hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(mainMod .. " + ALT + Q", hl.dsp.exec_cmd(config.programs.hyprshutdown))
 hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exec_cmd(config.programs.hyprlock))
 hl.bind(mainMod .. " + O", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(config.programs.rofi .. " -show drun"))
