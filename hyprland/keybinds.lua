@@ -15,14 +15,22 @@ hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + ALT + Q", hl.dsp.exec_cmd(config.programs.hyprshutdown))
 hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exec_cmd(config.programs.hyprlock))
 hl.bind(mainMod .. " + O", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(config.programs.rofi .. " -show drun"))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(config.programs.hyprlauncher))
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 -- TODO: get hyprpicker from config
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprpicker --autocopy --format=hex"))
 
- -- TODO: get cliphist and rofi from config
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"))
+-- Universal copy-paste with mod
+hl.bind(mainMod .. " + C", hl.dsp.send_shortcut({
+    mods = "CTRL_SHIFT",
+    key = "C",
+}))
+
+hl.bind(mainMod .. " + V", hl.dsp.send_shortcut({
+    mods = "CTRL_SHIFT",
+    key = "V",
+}))
 
 for i = 1, 4 do
   local dir = directions[i]
