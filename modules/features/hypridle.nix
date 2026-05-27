@@ -15,7 +15,7 @@
           package = inputs.hypridle.packages.${pkgs.stdenv.hostPlatform.system}.hypridle;
           runtimePkgs = [ ];
           flags = {
-            "--config" = pkgs.writeText "hyprpaper.conf" (
+            "--config" = pkgs.writeText "hypridle.conf" (
               self.generators.toHyprconf {
                 attrs = {
                   general = {

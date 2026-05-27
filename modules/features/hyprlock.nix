@@ -10,7 +10,7 @@
           package = inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock;
           runtimePkgs = [ ];
           flags = {
-            "--config" = pkgs.writeText "hyprpaper.conf" (
+            "--config" = pkgs.writeText "hyprlock.conf" (
               self.generators.toHyprconf {
                 attrs = {
                   general = {

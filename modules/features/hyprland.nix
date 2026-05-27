@@ -29,7 +29,6 @@
           runtimePkgs = with pkgs; [
             inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
             self'.packages.hypridle
-            hyprshutdown
             self'.packages.hyprsunset
             hyprpicker
             cliphist
@@ -39,6 +38,7 @@
             # TODO: gtk?
             # TODO: cursor
             # TODO: dunst
+            # TODO: hyprshutdown
           ];
           flags = {
             "--config" = "${../../hyprland}/hyprland.lua";
