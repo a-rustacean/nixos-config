@@ -20,3 +20,4 @@
 - [ ] Mac support
 - [ ] Aerospace? (WM for Mac)
 - [ ] Replace [dotfiles](https://github.com/a-rustacean/dotfiles)
+- [ ] Remove Ly (display manager)
