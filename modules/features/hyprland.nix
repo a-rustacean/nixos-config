@@ -22,7 +22,7 @@
     }:
     {
       packages.hyprland =
-        lib.extendDerivation true inputs.hyprland.packages.aarch64-linux.hyprland.passthru
+        lib.extendDerivation true inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland.passthru
           (
             inputs.wrapper-modules.lib.wrapPackage (
               { ... }:
