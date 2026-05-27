@@ -46,10 +46,10 @@
                   "--config" = "${../../hyprland}/hyprland.lua";
                 };
                 env = {
-                  HYPRLAND_ALACRITTY_EXE = lib.getExe self'.packages.alacritty;
-                  HYPRLAND_ROFI_EXE = lib.getExe pkgs.rofi; # TODO: configure rofi
-                  HYPRLAND_HYPRPAPER_EXE = lib.getExe self'.packages.hyprpaper;
-                  HYPRLAND_QUICKSHELL_EXE = lib.getExe self'.packages.quickshell;
+                  HYPRLAND_PROGRAM_ALACRITTY = lib.getExe self'.packages.alacritty;
+                  HYPRLAND_PROGRAM_ROFI = lib.getExe pkgs.rofi; # TODO: use hyprlauncher
+                  HYPRLAND_PROGRAM_HYPRPAPER = lib.getExe self'.packages.hyprpaper;
+                  HYPRLAND_PROGRAM_QUICKSHELL = lib.getExe self'.packages.quickshell;
                   # TODO: use hyprcursor
                   XCURSOR_PATH = "${pkgs.capitaine-cursors}/share/icons";
                   XCURSOR_THEME = "capitaine-cursors";
