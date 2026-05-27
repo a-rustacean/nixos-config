@@ -7,8 +7,7 @@
         enable = true;
         xwayland.enable = true;
         package = self.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-        portalPackage =
-          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+        portalPackage = self.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
     }
   );
@@ -30,7 +29,7 @@
                 inherit pkgs;
                 package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
                 runtimePkgs = with pkgs; [
-                  inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+                  self'.packages.xdg-desktop-portal-hyprland
                   self'.packages.hypridle
                   self'.packages.hyprsunset
                   hyprpicker
@@ -49,7 +48,7 @@
                   HYPRLAND_PROGRAM_ROFI = lib.getExe pkgs.rofi; # TODO: use hyprlauncher
                   HYPRLAND_PROGRAM_HYPRPAPER = lib.getExe self'.packages.hyprpaper;
                   HYPRLAND_PROGRAM_HYPRLOCK = lib.getExe self'.packages.hyprlock;
-                  HYPRLAND_PROGRAM_HYPRSHUTDOWN = lib.getExe inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.hyprshutdown;
+                  HYPRLAND_PROGRAM_HYPRSHUTDOWN = lib.getExe self'.packages.hyprshutdown;
                   HYPRLAND_PROGRAM_QUICKSHELL = lib.getExe self'.packages.quickshell;
                   # TODO: use hyprcursor
                   XCURSOR_PATH = "${pkgs.capitaine-cursors}/share/icons";
@@ -59,5 +58,8 @@
               }
             )
           );
+
+      packages.xdg-desktop-portal-hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      packages.hyprshutdown = inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.hyprshutdown;
     };
 }
