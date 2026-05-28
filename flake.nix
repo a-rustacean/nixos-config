@@ -83,6 +83,14 @@
       inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
     };
 
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "hyprland/systems";
+      inputs.hyprutils.follows = "hyprland/hyprutils";
+      inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+    };
+
     helix = {
       url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "nixpkgs";

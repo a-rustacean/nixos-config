@@ -18,8 +18,7 @@ hl.bind(mainMod .. " + O", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(config.programs.hyprlauncher))
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
--- TODO: get hyprpicker from config
-hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprpicker --autocopy --format=hex"))
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd(config.programs.hyprpicker .. " --autocopy --format=hex"))
 
 -- Universal copy-paste with mod
 hl.bind(mainMod .. " + C", hl.dsp.send_shortcut({
