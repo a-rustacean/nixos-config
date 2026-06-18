@@ -6,6 +6,15 @@
       packages.helix = inputs.wrapper-modules.wrappers.helix.wrap {
         inherit pkgs;
         package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.helix;
+        runtimePkgs = with pkgs; [
+          typescript-language-server
+          vscode-langservers-extracted
+          bash-language-server
+          lua-language-server
+          nixd
+          just-lsp
+          taplo
+        ];
         settings = {
           theme = "everblush_inherit_bg";
           editor = {
