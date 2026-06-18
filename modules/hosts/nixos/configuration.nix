@@ -75,7 +75,6 @@
         initialPassword = "dilshad"; # username is the default password
       };
 
-      programs.zsh.enable = true;
       programs.dconf.enable = true;
       programs.nix-ld.enable = true;
 
