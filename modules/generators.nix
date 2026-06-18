@@ -2,7 +2,7 @@
 
 { lib, ... }:
 {
-  flake.generators = {
+  flake.lib.generators = {
     toHyprconf =
       {
         attrs,

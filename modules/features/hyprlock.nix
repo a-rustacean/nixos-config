@@ -11,7 +11,7 @@
           runtimePkgs = [ ];
           flags = {
             "--config" = pkgs.writeText "hyprlock.conf" (
-              self.generators.toHyprconf {
+              self.lib.generators.toHyprconf {
                 attrs = {
                   general = {
                     hide_cursor = true;

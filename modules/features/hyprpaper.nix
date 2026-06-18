@@ -11,7 +11,7 @@
           runtimePkgs = [ ];
           flags = {
             "--config" = pkgs.writeText "hyprpaper.conf" (
-              self.generators.toHyprconf {
+              self.lib.generators.toHyprconf {
                 attrs = {
                   splash = false;
                   wallpaper = [

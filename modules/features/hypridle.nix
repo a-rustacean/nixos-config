@@ -16,7 +16,7 @@
           runtimePkgs = [ ];
           flags = {
             "--config" = pkgs.writeText "hypridle.conf" (
-              self.generators.toHyprconf {
+              self.lib.generators.toHyprconf {
                 attrs = {
                   general = {
                     after_sleep_cmd = "hyprctl dispatch dpms on";

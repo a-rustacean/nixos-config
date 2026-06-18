@@ -11,7 +11,7 @@
           runtimePkgs = [ ];
           flags = {
             "--config" = pkgs.writeText "hyprsunset.conf" (
-              self.generators.toHyprconf {
+              self.lib.generators.toHyprconf {
                 attrs = {
                   max-gamma = 100;
 
