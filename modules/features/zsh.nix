@@ -1,7 +1,7 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   perSystem =
-    { pkgs, ... }:
+    { pkgs, self', ... }:
     {
       packages.zsh =
         let
@@ -53,6 +53,8 @@
             HISTSIZE="10000"
             SAVEHIST="10000"
             HISTFILE="/home/$USER/.zsh_history"
+
+            export EDITOR=${lib.getExe self'.packages.helix}
           '';
         };
     };
