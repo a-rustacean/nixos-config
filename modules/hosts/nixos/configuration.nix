@@ -47,8 +47,10 @@
         ];
       };
 
+      # TODO: remove hardcoded
       time.timeZone = "Asia/Kolkata";
 
+      # TODO: remove Ly
       services.displayManager.ly.enable = true;
 
       services.pulseaudio.enable = false;

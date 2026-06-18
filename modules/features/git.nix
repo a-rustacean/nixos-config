@@ -1,5 +1,6 @@
 { inputs, ... }:
 {
+  # TODO: setup gpg agent
   perSystem =
     { pkgs, lib, ... }:
     {
