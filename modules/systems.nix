@@ -1,4 +1,4 @@
 { inputs, ... }:
 {
-  systems = import inputs.systems;
+  systems = builtins.attrNames inputs.nixpkgs.legacyPackages;
 }
