@@ -19,5 +19,8 @@
           "x-systemd.automount"
         ];
       };
+      environment.sessionVariables = {
+        LIBGL_ALWAYS_SOFTWARE = "1";
+      };
     };
 }

@@ -78,10 +78,6 @@
       programs.dconf.enable = true;
       programs.nix-ld.enable = true;
 
-      environment.sessionVariables = {
-        LIBGL_ALWAYS_SOFTWARE = "1";
-      };
-
       environment.systemPackages = [
         self.packages.${pkgs.stdenv.hostPlatform.system}.helix
         self.packages.${pkgs.stdenv.hostPlatform.system}.git
