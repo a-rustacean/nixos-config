@@ -1,7 +1,12 @@
 { self, ... }:
 {
   perSystem =
-    { pkgs, lib, self', ... }:
+    {
+      pkgs,
+      lib,
+      self',
+      ...
+    }:
     {
       packages.hypridle = self.lib.wrappers.hypridle.wrap {
         inherit pkgs;
