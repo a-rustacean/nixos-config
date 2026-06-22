@@ -32,7 +32,7 @@
 
                   background = [
                     {
-                      path = "${../../wallpaper.jpg}";
+                      path = "${../../wallpaper.png}";
                       blur_passes = 3;
                       blur_size = 8;
                     }
