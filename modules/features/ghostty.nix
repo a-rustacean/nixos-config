@@ -12,7 +12,6 @@
           cursor-style = block
           mouse-hide-while-typing = true
           scroll-to-bottom = keystroke, output
-          mouse-reporting = false
           theme = nix-theme
           # restore XDG_CONFIG_HOME
           env = XDG_CONFIG_HOME=~/.config
