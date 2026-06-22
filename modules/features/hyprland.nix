@@ -40,7 +40,7 @@
                   "--config" = "${../../hyprland}/hyprland.lua";
                 };
                 env = {
-                  HYPRLAND_PROGRAM_ALACRITTY = lib.getExe self'.packages.alacritty;
+                  HYPRLAND_PROGRAM_GHOSTTY = lib.getExe self'.packages.ghostty;
                   HYPRLAND_PROGRAM_HYPRLAUNCHER = lib.getExe self'.packages.hyprlauncher;
                   HYPRLAND_PROGRAM_HYPRPAPER = lib.getExe self'.packages.hyprpaper;
                   HYPRLAND_PROGRAM_HYPRLOCK = lib.getExe self'.packages.hyprlock;

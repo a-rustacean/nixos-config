@@ -25,10 +25,10 @@ hl.config({
   },
 
   decoration = {
-    rounding         = 15,
+    rounding         = 10,
     rounding_power   = 2,
     active_opacity   = 1,
-    inactive_opacity = 1,
+    inactive_opacity = 0.9,
 
     shadow           = {
       enabled      = true,
@@ -36,60 +36,21 @@ hl.config({
       render_power = 3,
       color        = 0xee1a1a1a,
     },
-
-    blur             = {
-      enabled           = true,
-      size              = 6,
-      passes            = 1,
-      vibrancy          = 0.1696,
-      new_optimizations = true,
-      ignore_opacity    = true,
-    },
   },
 
   animations = {
     enabled = true,
   },
-})
 
--- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
-hl.config({
   dwindle = {
     preserve_split = true,
   },
-})
 
--- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
-hl.config({
-  master = {
-    new_status = "master",
-  },
-})
-
--- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
-hl.config({
-  scrolling = {
-    fullscreen_on_one_column = true,
-  },
-})
-
-----------------
-----  MISC  ----
-----------------
-
-hl.config({
   misc = {
     force_default_wallpaper = -1,
     disable_hyprland_logo   = true,
   },
-})
 
-
----------------
----- INPUT ----
----------------
-
-hl.config({
   input = {
     kb_layout      = "us",
     kb_variant     = "",
@@ -152,13 +113,13 @@ hl.window_rule({
 })
 
 hl.window_rule({
-  name = "transparent-alacritty",
-  match = { class = "Alacritty" },
-
-  opacity = "override 0.75 override 0.60",
-})
-
-hl.window_rule({
   match        = { class = "(pinentry-)(.*)" },
   stay_focused = true,
 })
+
+-- Disable opaque region on Ghostty so Hyprland blurs behind its transparency
+hl.on("window.open", function(win)
+  if win.class == "com.mitchellh.ghostty" then
+    hl.exec_cmd("hyprctl setprop window=" .. win.address .. " no_blur 0")
+  end
+end)

@@ -24,6 +24,9 @@
                   # restore XDG_CONFIG_HOME
                   env = XDG_CONFIG_HOME=~/.config
 
+                  background-opacity = 0.75
+                  background-blur = 20
+
                   window-padding-x = 10
                   window-padding-y = 10
                   window-padding-balance = true
