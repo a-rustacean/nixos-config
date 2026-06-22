@@ -28,7 +28,7 @@ ShellRoot {
     // Active window title
     Process {
         id: windowProc
-        command: ["sh", "-c", "hyprctl activewindow -j | jq -r '.class // \"NixOS\"'"]
+        command: ["sh", "-c", "hyprctl activewindow -j | jq -r '.initialTitle // \"NixOS\"'"]
         stdout: SplitParser {
             onRead: data => {
                 if (data && data.trim()) {
