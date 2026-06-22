@@ -1,6 +1,6 @@
 { self, inputs, ... }:
 {
-  flake.nixosModules.hyprland = (
+  flake.nixosModules.hyprland =
     { pkgs, ... }:
     {
       programs.hyprland = {
@@ -9,8 +9,7 @@
         package = self.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
         portalPackage = self.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
-    }
-  );
+    };
 
   perSystem =
     {
@@ -20,42 +19,33 @@
       ...
     }:
     {
-      packages.hyprland =
-        lib.extendDerivation true
-          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland.passthru
-          (
-            inputs.wrapper-modules.lib.wrapPackage (
-              { ... }:
-              {
-                inherit pkgs;
-                package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-                runtimePkgs = with pkgs; [
-                  self'.packages.xdg-desktop-portal-hyprland
-                  self'.packages.hypridle
-                  self'.packages.hyprsunset
-                  cliphist
-                  wl-clipboard
-                ];
-                flags = {
-                  "--config" = "${../../hyprland}/hyprland.lua";
-                };
-                env = {
-                  HYPRLAND_PROGRAM_GHOSTTY = lib.getExe self'.packages.ghostty;
-                  HYPRLAND_PROGRAM_HYPRLAUNCHER = lib.getExe self'.packages.hyprlauncher;
-                  HYPRLAND_PROGRAM_HYPRPAPER = lib.getExe self'.packages.hyprpaper;
-                  HYPRLAND_PROGRAM_HYPRLOCK = lib.getExe self'.packages.hyprlock;
-                  HYPRLAND_PROGRAM_HYPRSHUTDOWN = lib.getExe self'.packages.hyprshutdown;
-                  HYPRLAND_PROGRAM_HYPRPICKER = lib.getExe self'.packages.hyprpicker;
-                  HYPRLAND_PROGRAM_QUICKSHELL = lib.getExe self'.packages.quickshell;
-                  HYPRLAND_PROGRAM_DUNST = lib.getExe self'.packages.dunst;
-                  # TODO: use hyprcursor
-                  XCURSOR_PATH = "${pkgs.capitaine-cursors}/share/icons";
-                  XCURSOR_THEME = "capitaine-cursors";
-                  XCURSOR_SIZE = "24";
-                };
-              }
-            )
-          );
+      packages.hyprland = self.lib.wrappers.hyprland.wrap {
+        inherit pkgs;
+        runtimePkgs = with pkgs; [
+          self'.packages.xdg-desktop-portal-hyprland
+          self'.packages.hypridle
+          self'.packages.hyprsunset
+          cliphist
+          wl-clipboard
+        ];
+        flags = {
+          "--config" = "${../../hyprland}/hyprland.lua";
+        };
+        env = {
+          HYPRLAND_PROGRAM_GHOSTTY = lib.getExe self'.packages.ghostty;
+          HYPRLAND_PROGRAM_HYPRLAUNCHER = lib.getExe self'.packages.hyprlauncher;
+          HYPRLAND_PROGRAM_HYPRPAPER = lib.getExe self'.packages.hyprpaper;
+          HYPRLAND_PROGRAM_HYPRLOCK = lib.getExe self'.packages.hyprlock;
+          HYPRLAND_PROGRAM_HYPRSHUTDOWN = lib.getExe self'.packages.hyprshutdown;
+          HYPRLAND_PROGRAM_HYPRPICKER = lib.getExe self'.packages.hyprpicker;
+          HYPRLAND_PROGRAM_QUICKSHELL = lib.getExe self'.packages.quickshell;
+          HYPRLAND_PROGRAM_DUNST = lib.getExe self'.packages.dunst;
+          # TODO: use hyprcursor
+          XCURSOR_PATH = "${pkgs.capitaine-cursors}/share/icons";
+          XCURSOR_THEME = "capitaine-cursors";
+          XCURSOR_SIZE = "24";
+        };
+      };
 
       packages.xdg-desktop-portal-hyprland =
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;

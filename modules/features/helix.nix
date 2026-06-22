@@ -1,11 +1,10 @@
-{ inputs, ... }:
+{ self, inputs, ... }:
 {
   perSystem =
     { pkgs, lib, ... }:
     {
-      packages.helix = inputs.wrapper-modules.wrappers.helix.wrap {
+      packages.helix = self.lib.wrappers.helix.wrap {
         inherit pkgs;
-        package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.helix;
         runtimePkgs = with pkgs; [
           typescript-language-server
           vscode-langservers-extracted

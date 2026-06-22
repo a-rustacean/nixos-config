@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ self, ... }:
 {
   # TODO: setup gpg agent
   perSystem =
@@ -8,9 +8,8 @@
         let
           lfsPath = lib.getExe pkgs.git-lfs;
         in
-        inputs.wrapper-modules.wrappers.git.wrap {
+        self.lib.wrappers.git.wrap {
           inherit pkgs;
-          package = pkgs.git;
           runtimePkgs = [ pkgs.gnupg ];
           settings = {
             commit.gpgSign = true;

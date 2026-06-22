@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ self, lib, ... }:
 {
   perSystem =
     { pkgs, self', ... }:
@@ -20,14 +20,13 @@
             }
           ];
         in
-        inputs.wrapper-modules.wrappers.zsh.wrap {
+        self.lib.wrappers.zsh.wrap {
           inherit pkgs;
-          package = pkgs.zsh;
           runtimePkgs = [
             pkgs.nix-zsh-completions
             pkgs.oh-my-zsh
           ];
-          zshrc.content = ''
+          zshrc = ''
             source ${../../p10k-zsh}
             plugins=(git zsh-autopair zsh-autosuggestions node nvm npm rust)
             ZSH_THEME=powerlevel10k/powerlevel10k

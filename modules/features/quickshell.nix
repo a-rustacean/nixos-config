@@ -1,9 +1,9 @@
-{ inputs, ... }:
+{ self, ... }:
 {
   perSystem =
     { pkgs, ... }:
     {
-      packages.quickshell = inputs.wrapper-modules.wrappers.quickshell.wrap {
+      packages.quickshell = self.lib.wrappers.quickshell.wrap {
         inherit pkgs;
         runtimePkgs = [ pkgs.jq ];
         configDir = "${../../quickshell}";
