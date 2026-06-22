@@ -5,21 +5,20 @@
     {
       packages.alacritty = inputs.wrapper-modules.wrappers.alacritty.wrap {
         inherit pkgs;
-        runtimePkgs = [ pkgs.nerd-fonts.jetbrains-mono ];
         settings = {
           general.live_config_reload = true;
           font = {
             size = 16.0;
             bold = {
-              family = "JetBrainsMono Nerd Font Mono";
+              family = "JetBrainsMono Nerd Font";
               style = "Bold";
             };
             italic = {
-              family = "JetBrainsMono Nerd Font Mono";
+              family = "JetBrainsMono Nerd Font";
               style = "Light Italic";
             };
             normal = {
-              family = "JetBrainsMono Nerd Font Mono";
+              family = "JetBrainsMono Nerd Font";
               style = "Medium";
             };
             glyph_offset = {
@@ -41,6 +40,7 @@
             };
           };
         };
+        env.XDG_DATA_DIRS = "${pkgs.nerd-fonts.jetbrains-mono}/share";
       };
     };
 }
