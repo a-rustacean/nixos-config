@@ -12,11 +12,11 @@ hl.config({
   general = {
     gaps_in          = 6,
     gaps_out         = 12,
-    border_size      = 2,
+    border_size      = 3,
 
     col              = {
-      active_border   = "rgba(7c7c7cff)",
-      inactive_border = "rgba(595959aa)",
+      active_border   = "rgb(cdd6f4)", -- Text
+      inactive_border = "rgb(9399b2)", -- Overlay 2
     },
 
     resize_on_border = false,
@@ -28,7 +28,7 @@ hl.config({
     rounding         = 10,
     rounding_power   = 2,
     active_opacity   = 1,
-    inactive_opacity = 0.9,
+    inactive_opacity = 0.8,
 
     shadow           = {
       enabled      = true,
@@ -36,6 +36,19 @@ hl.config({
       render_power = 3,
       color        = 0xee1a1a1a,
     },
+
+    blur = {
+      enabled = true;
+      size = 12;
+      passes = 2;
+      ignore_opacity = true;
+      new_optimizations = true;
+      noise = 0.1;
+      contrast = 0.9;
+      brightness = 0.6;
+      vibrancy = 0.2;
+      popups = true;
+    }
   },
 
   animations = {
@@ -117,9 +130,10 @@ hl.window_rule({
   stay_focused = true,
 })
 
--- Disable opaque region on Ghostty so Hyprland blurs behind its transparency
-hl.on("window.open", function(win)
-  if win.class == "com.mitchellh.ghostty" then
-    hl.exec_cmd("hyprctl setprop window=" .. win.address .. " no_blur 0")
-  end
-end)
+hl.window_rule({
+  match = {
+    class = "vesktop|com.mitchellh.ghostty",
+  },
+
+  opacity = "0.8",
+})
