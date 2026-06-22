@@ -11,7 +11,7 @@
             {
               fit_mode = "cover";
               monitor = "";
-              path = "${../../wallpaper.png}";
+              path = "${../../wallpaper.jpg}";
             }
           ];
         };
