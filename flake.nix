@@ -20,6 +20,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+
+    base16.url = "github:SenchoPens/base16.nix";
+
+    tt-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
+
+    base16-helix = {
+      url = "github:tinted-theming/base16-helix";
+      flake = false;
+    };
     hyprutils = {
       url = "github:hyprwm/hyprutils";
       inputs = {

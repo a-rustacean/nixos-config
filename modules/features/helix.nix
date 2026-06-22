@@ -16,7 +16,7 @@
           taplo
         ];
         settings = {
-          theme = "everblush_inherit_bg";
+          theme = "nix-theme";
           editor = {
             line-number = "relative";
             true-color = true;
@@ -69,10 +69,17 @@
           };
         };
         themes = {
-          everblush_inherit_bg = {
-            inherits = "everblush";
-            "ui.background" = { };
-          };
+          "nix-theme" = fromTOML (
+            builtins.readFile (
+              (pkgs.callPackage inputs.base16.lib { }).mkSchemeAttrs
+                # TODO: replace hardcoded
+                "${inputs.tt-schemes}/base24/catppuccin-mocha.yaml"
+                {
+                  templateRepo = inputs.base16-helix;
+                  target = "base24";
+                }
+            )
+          );
         };
         languages = {
           language =
