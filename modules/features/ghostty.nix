@@ -27,15 +27,9 @@
           shell-integration = detect
           shell-integration-features = no-cursor, sudo
         '';
-        theme = builtins.readFile (
-          (pkgs.callPackage inputs.base16.lib { }).mkSchemeAttrs
-            "${inputs.tt-schemes}/base24/catppuccin-mocha.yaml"
-            {
-              templateRepo = inputs.base16-terminal;
-              target = "ghostty-base24";
-              check-parsed-config-yaml = false;
-            }
-        );
+        theme = builtins.readFile "${
+          inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.ghostty
+        }/catppuccin-mocha.conf";
         fontPackage = pkgs.nerd-fonts.jetbrains-mono;
       };
     };
