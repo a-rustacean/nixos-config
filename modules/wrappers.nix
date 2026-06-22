@@ -1,11 +1,23 @@
-{ self, inputs, lib, ... }:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
 let
   wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
   system = pkgs: pkgs.stdenv.hostPlatform.system;
 
   mkHyprWrapper = name: {
     wrap =
-      { pkgs, settings, runtimePkgs ? [ ], extraFlags ? { }, extraConfig ? "", importantPrefixes ? [ "$" ] }:
+      {
+        pkgs,
+        settings,
+        runtimePkgs ? [ ],
+        extraFlags ? { },
+        extraConfig ? "",
+        importantPrefixes ? [ "$" ],
+      }:
       wrapPackage (
         { ... }:
         {
@@ -17,9 +29,11 @@ let
               (self.lib.generators.toHyprconf {
                 attrs = settings;
                 inherit importantPrefixes;
-              }) + extraConfig
+              })
+              + extraConfig
             );
-          } // extraFlags;
+          }
+          // extraFlags;
         }
       );
   };
@@ -30,17 +44,32 @@ in
 
     helix = {
       wrap =
-        { pkgs, settings, themes, languages, runtimePkgs ? [ ] }:
+        {
+          pkgs,
+          settings,
+          themes ? { },
+          languages,
+          runtimePkgs ? [ ],
+        }:
         inputs.wrapper-modules.wrappers.helix.wrap {
           inherit pkgs;
           package = inputs.helix.packages.${system pkgs}.helix;
-          inherit runtimePkgs settings themes languages;
+          inherit
+            runtimePkgs
+            settings
+            themes
+            languages
+            ;
         };
     };
 
     zsh = {
       wrap =
-        { pkgs, zshrc, runtimePkgs ? [ ] }:
+        {
+          pkgs,
+          zshrc,
+          runtimePkgs ? [ ],
+        }:
         inputs.wrapper-modules.wrappers.zsh.wrap {
           inherit pkgs;
           package = pkgs.zsh;
@@ -51,7 +80,11 @@ in
 
     git = {
       wrap =
-        { pkgs, settings, runtimePkgs ? [ ] }:
+        {
+          pkgs,
+          settings,
+          runtimePkgs ? [ ],
+        }:
         inputs.wrapper-modules.wrappers.git.wrap {
           inherit pkgs;
           package = pkgs.git;
@@ -61,14 +94,25 @@ in
 
     quickshell = {
       wrap =
-        { pkgs, runtimePkgs ? [ ], configDir, env ? { }, extraFlags ? { } }:
-        wrapPackage ({ ... }: {
-          inherit pkgs;
-          package = pkgs.quickshell;
-          inherit runtimePkgs;
-          flags = { "--path" = configDir; } // extraFlags;
-          inherit env;
-        });
+        {
+          pkgs,
+          runtimePkgs ? [ ],
+          configDir,
+          env ? { },
+          extraFlags ? { },
+        }:
+        wrapPackage (
+          { ... }: {
+            inherit pkgs;
+            package = pkgs.quickshell;
+            inherit runtimePkgs;
+            flags = {
+              "--path" = configDir;
+            }
+            // extraFlags;
+            inherit env;
+          }
+        );
     };
 
     hypridle = mkHyprWrapper "hypridle";
@@ -78,7 +122,13 @@ in
 
     ghostty = {
       wrap =
-        { pkgs, runtimePkgs ? [ ], config, theme ? null, fontPackage ? null }:
+        {
+          pkgs,
+          runtimePkgs ? [ ],
+          config,
+          theme ? null,
+          fontPackage ? null,
+        }:
         wrapPackage (
           { ... }:
           {
@@ -88,34 +138,109 @@ in
             env = {
               XDG_CONFIG_HOME = pkgs.symlinkJoin {
                 name = "ghostty-config";
-                paths =
-                  [
-                    (pkgs.writeTextDir "ghostty/config" config)
-                  ]
-                  ++ lib.optional (theme != null) (pkgs.writeTextDir "ghostty/themes/nix-theme" theme);
+                paths = [
+                  (pkgs.writeTextDir "ghostty/config" config)
+                ]
+                ++ lib.optional (theme != null) (pkgs.writeTextDir "ghostty/themes/nix-theme" theme);
               };
-            } // lib.optionalAttrs (fontPackage != null) {
+            }
+            // lib.optionalAttrs (fontPackage != null) {
               XDG_DATA_DIRS = "${fontPackage}/share";
             };
           }
         );
     };
 
+    vesktop = {
+      wrap =
+        {
+          pkgs,
+          settings ? { },
+          vencordSettings ? { },
+          quickCss ? "",
+          themes ? { },
+          rgbStrip ? null,
+          runtimePkgs ? [ ],
+          flags ? { },
+          env ? { },
+        }:
+        let
+          configFiles = [
+            (pkgs.writeTextDir "settings.json" (builtins.toJSON settings))
+            (pkgs.writeTextDir "settings/settings.json" (builtins.toJSON vencordSettings))
+          ]
+          ++ lib.optional (quickCss != "") (pkgs.writeTextDir "settings/quickCss.css" quickCss)
+          ++ lib.optional (themes != { }) (
+            pkgs.runCommandLocal "vesktop-themes" { } (
+              lib.concatStringsSep "\n" (
+                lib.mapAttrsToList (name: path: "ln -s '${path}' \"$out/themes/${name}\"") themes
+              )
+            )
+          )
+          ++ lib.optional (rgbStrip != null) (pkgs.writeTextDir "rgbStrip.json" (builtins.toJSON rgbStrip));
+
+          storeConfig = pkgs.symlinkJoin {
+            name = "vesktop-config";
+            paths = configFiles;
+          };
+
+          vesktopBin = lib.getExe pkgs.vesktop;
+
+          runtimePath = lib.makeBinPath runtimePkgs;
+
+          wrapperScript = pkgs.writeShellScriptBin "vesktop" ''
+            set -euo pipefail
+
+            DATA_DIR="''${VENCORD_USER_DATA_DIR:-"$HOME/.local/share/vesktop-nix"}"
+
+            mkdir -p "$DATA_DIR/settings" "$DATA_DIR/themes"
+
+            cp --remove-destination "$(readlink -f "${storeConfig}/settings.json")" "$DATA_DIR/settings.json"
+            cp --remove-destination "$(readlink -f "${storeConfig}/settings/settings.json")" "$DATA_DIR/settings/settings.json"
+
+            ${lib.optionalString (quickCss != "") ''
+              cp --remove-destination "$(readlink -f "${storeConfig}/settings/quickCss.css")" "$DATA_DIR/settings/quickCss.css"
+            ''}
+
+            ${lib.optionalString (themes != { }) ''
+              for f in "${storeConfig}"/themes/*; do
+                [ -e "$f" ] && cp --remove-destination "$(readlink -f "$f")" "$DATA_DIR/themes/$(basename "$f")"
+              done
+            ''}
+
+            ${lib.optionalString (rgbStrip != null) ''
+              cp --remove-destination "$(readlink -f "${storeConfig}/rgbStrip.json")" "$DATA_DIR/rgbStrip.json"
+            ''}
+
+            export VENCORD_USER_DATA_DIR="$DATA_DIR"
+            ${lib.optionalString (runtimePath != "") "export PATH=\"$runtimePath\":\"$PATH\""}
+            ${builtins.concatStringsSep "\n" (
+              lib.mapAttrsToList (n: v: "export ${n}=${lib.escapeShellArg v}") env
+            )}
+            exec ${lib.escapeShellArg vesktopBin} "$@"
+          '';
+        in
+        wrapperScript;
+    };
+
     hyprland = {
       wrap =
-        { pkgs, runtimePkgs ? [ ], flags ? { }, env ? { } }:
-        lib.extendDerivation true
-          inputs.hyprland.packages.${system pkgs}.hyprland.passthru
-          (
-            wrapPackage (
-              { ... }:
-              {
-                inherit pkgs;
-                package = inputs.hyprland.packages.${system pkgs}.hyprland;
-                inherit runtimePkgs flags env;
-              }
-            )
-          );
+        {
+          pkgs,
+          runtimePkgs ? [ ],
+          flags ? { },
+          env ? { },
+        }:
+        lib.extendDerivation true inputs.hyprland.packages.${system pkgs}.hyprland.passthru (
+          wrapPackage (
+            { ... }:
+            {
+              inherit pkgs;
+              package = inputs.hyprland.packages.${system pkgs}.hyprland;
+              inherit runtimePkgs flags env;
+            }
+          )
+        );
     };
   };
 }
