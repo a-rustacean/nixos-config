@@ -20,6 +20,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
 
     base16.url = "github:SenchoPens/base16.nix";
 
@@ -32,6 +37,12 @@
       url = "github:tinted-theming/base16-helix";
       flake = false;
     };
+
+    base16-terminal = {
+      url = "github:tinted-theming/tinted-terminal";
+      flake = false;
+    };
+
     hyprutils = {
       url = "github:hyprwm/hyprutils";
       inputs = {
