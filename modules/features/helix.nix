@@ -1,4 +1,4 @@
-{ self, inputs, ... }:
+{ self, ... }:
 {
   perSystem =
     { pkgs, lib, ... }:
@@ -15,7 +15,7 @@
           taplo
         ];
         settings = {
-          theme = "nix-theme";
+          theme = "catppuccin_mocha";
           editor = {
             line-number = "relative";
             true-color = true;
@@ -66,19 +66,6 @@
               tabpad = "all";
             };
           };
-        };
-        themes = {
-          "nix-theme" = fromTOML (
-            builtins.readFile (
-              (pkgs.callPackage inputs.base16.lib { }).mkSchemeAttrs
-                # TODO: replace hardcoded
-                "${inputs.tt-schemes}/base24/catppuccin-mocha.yaml"
-                {
-                  templateRepo = inputs.base16-helix;
-                  target = "base24";
-                }
-            )
-          );
         };
         languages = {
           language =
