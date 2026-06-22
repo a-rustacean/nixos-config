@@ -6,6 +6,7 @@
       imports = [
         self.nixosModules.hardwareConfig
         self.nixosModules.hyprland
+        self.nixosModules.git
         self.nixosModules.vm
       ];
       system.stateVersion = "26.05";
