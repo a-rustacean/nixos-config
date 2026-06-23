@@ -78,6 +78,25 @@ in
         };
     };
 
+    oh-my-posh = {
+      wrap =
+        {
+          pkgs,
+          config,
+          runtimePkgs ? [ ],
+        }:
+        wrapPackage (
+          { ... }: {
+            inherit pkgs;
+            package = pkgs.oh-my-posh;
+            inherit runtimePkgs;
+            flags = {
+              "--config" = pkgs.writeText "oh-my-posh.json" (self.lib.generators.toOMP config);
+            };
+          }
+        );
+    };
+
     git = {
       wrap =
         {

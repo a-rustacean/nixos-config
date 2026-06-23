@@ -7,10 +7,6 @@
         let
           omzCustom = pkgs.linkFarm "omz-custom" [
             {
-              name = "themes/powerlevel10k";
-              path = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
-            }
-            {
               name = "plugins/zsh-autosuggestions";
               path = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions";
             }
@@ -25,13 +21,14 @@
           runtimePkgs = [
             pkgs.nix-zsh-completions
             pkgs.oh-my-zsh
+            pkgs.oh-my-posh
           ];
           zshrc = ''
-            source ${../../p10k-zsh}
             plugins=(git zsh-autopair zsh-autosuggestions node nvm npm rust)
-            ZSH_THEME=powerlevel10k/powerlevel10k
             ZSH_CUSTOM=${omzCustom}
+            ZSH_THEME=""
             source ${pkgs.oh-my-zsh}/share/oh-my-zsh/oh-my-zsh.sh
+            eval "$(${lib.getExe self'.packages.oh-my-posh} init zsh)"
 
             typeset -U path cdpath fpath manpath
             for profile in ''${(z)NIX_PROFILES}; do
