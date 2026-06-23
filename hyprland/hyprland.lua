@@ -16,7 +16,7 @@ hl.config({
 
     col              = {
       active_border   = "rgb(cdd6f4)", -- Text
-      inactive_border = "rgb(9399b2)", -- Overlay 2
+      inactive_border = "rgb(313244)", -- Surface 0
     },
 
     resize_on_border = false,
