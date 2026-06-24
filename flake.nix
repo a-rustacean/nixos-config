@@ -36,7 +36,7 @@
     };
 
     hyprutils = {
-      url = "github:hyprwm/hyprutils";
+      url = "github:hyprwm/hyprutils/v0.13.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -44,7 +44,7 @@
     };
 
     hyprwayland-scanner = {
-      url = "github:hyprwm/hyprwayland-scanner";
+      url = "github:hyprwm/hyprwayland-scanner/v0.4.6";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -52,7 +52,7 @@
     };
 
     hyprland-protocols = {
-      url = "github:hyprwm/hyprland-protocols";
+      url = "github:hyprwm/hyprland-protocols/v0.7.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -60,7 +60,7 @@
     };
 
     hyprlang = {
-      url = "github:hyprwm/hyprlang";
+      url = "github:hyprwm/hyprlang/v0.6.8";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -69,7 +69,7 @@
     };
 
     hyprgraphics = {
-      url = "github:hyprwm/hyprgraphics";
+      url = "github:hyprwm/hyprgraphics/v0.5.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -78,7 +78,7 @@
     };
 
     hyprwire = {
-      url = "github:hyprwm/hyprwire";
+      url = "github:hyprwm/hyprwire/v0.3.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -87,7 +87,7 @@
     };
 
     aquamarine = {
-      url = "github:hyprwm/aquamarine";
+      url = "github:hyprwm/aquamarine/v0.12.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -97,7 +97,7 @@
     };
 
     hyprtoolkit = {
-      url = "github:hyprwm/hyprtoolkit";
+      url = "github:hyprwm/hyprtoolkit/v0.5.4";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -110,7 +110,7 @@
     };
 
     hyprland-guiutils = {
-      url = "github:hyprwm/hyprland-guiutils";
+      url = "github:hyprwm/hyprland-guiutils/v0.2.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -124,7 +124,7 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland/v0.55.4";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -140,7 +140,7 @@
     };
 
     hypridle = {
-      url = "github:hyprwm/hypridle";
+      url = "github:hyprwm/hypridle/v0.1.7";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -152,7 +152,7 @@
     };
 
     hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
+      url = "github:hyprwm/hyprpaper/v0.8.4";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -167,7 +167,7 @@
     };
 
     hyprlock = {
-      url = "github:hyprwm/hyprlock";
+      url = "github:hyprwm/hyprlock/v0.9.5";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -179,7 +179,7 @@
     };
 
     hyprsunset = {
-      url = "github:hyprwm/hyprsunset";
+      url = "github:hyprwm/hyprsunset/v0.3.3";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -191,7 +191,7 @@
     };
 
     hyprshutdown = {
-      url = "github:hyprwm/hyprshutdown";
+      url = "github:hyprwm/hyprshutdown/v0.1.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -203,7 +203,7 @@
     };
 
     hyprlauncher = {
-      url = "github:hyprwm/hyprlauncher";
+      url = "github:hyprwm/hyprlauncher/v0.1.6";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -218,7 +218,7 @@
     };
 
     hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
+      url = "github:hyprwm/hyprpicker/v0.4.7";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
