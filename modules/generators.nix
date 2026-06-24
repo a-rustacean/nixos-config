@@ -316,22 +316,23 @@ let
     let
       indentStr = n: concatStrings (replicate n "  ");
 
-      go = indent: value:
+      go =
+        indent: value:
         if builtins.isAttrs value then
-          if value == { } then "{}"
+          if value == { } then
+            "{}"
           else
             "{\n"
-            + concatStringsSep ",\n" (mapAttrsToList (k: v:
-              "${indentStr (indent + 1)}${builtins.toJSON k}: ${go (indent + 1) v}"
-            ) value)
+            + concatStringsSep ",\n" (
+              mapAttrsToList (k: v: "${indentStr (indent + 1)}${builtins.toJSON k}: ${go (indent + 1) v}") value
+            )
             + "\n${indentStr indent}}"
         else if builtins.isList value then
-          if value == [ ] then "[]"
+          if value == [ ] then
+            "[]"
           else
             "[\n"
-            + concatStringsSep ",\n" (map (v:
-              "${indentStr (indent + 1)}${go (indent + 1) v}"
-            ) value)
+            + concatStringsSep ",\n" (map (v: "${indentStr (indent + 1)}${go (indent + 1) v}") value)
             + "\n${indentStr indent}]"
         else
           builtins.toJSON value;
@@ -371,6 +372,12 @@ let
 in
 {
   flake.lib.generators = {
-    inherit toHyprconf toKDL toSCFG toOMP catppuccin;
+    inherit
+      toHyprconf
+      toKDL
+      toSCFG
+      toOMP
+      catppuccin
+      ;
   };
 }
