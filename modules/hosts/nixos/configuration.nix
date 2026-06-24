@@ -84,6 +84,7 @@
         self.packages.${pkgs.stdenv.hostPlatform.system}.git
         self.packages.${pkgs.stdenv.hostPlatform.system}.vesktop
         self.packages.${pkgs.stdenv.hostPlatform.system}.gitui
+        self.packages.${pkgs.stdenv.hostPlatform.system}.cava
       ];
 
       services.openssh.enable = true;
