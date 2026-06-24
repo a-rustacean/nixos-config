@@ -180,7 +180,6 @@ in
           themes ? { },
           rgbStrip ? null,
           runtimePkgs ? [ ],
-          flags ? { },
           env ? { },
         }:
         let

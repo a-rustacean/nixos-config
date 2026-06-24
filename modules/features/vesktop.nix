@@ -55,7 +55,6 @@
         quickCss = ''@import url("https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css");'';
 
         runtimePkgs = [ ];
-        flags = { };
         env = { };
       };
     };
