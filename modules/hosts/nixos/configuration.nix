@@ -83,7 +83,7 @@
         self.packages.${pkgs.stdenv.hostPlatform.system}.helix
         self.packages.${pkgs.stdenv.hostPlatform.system}.git
         self.packages.${pkgs.stdenv.hostPlatform.system}.vesktop
-        pkgs.gitui
+        self.packages.${pkgs.stdenv.hostPlatform.system}.gitui
       ];
 
       services.openssh.enable = true;

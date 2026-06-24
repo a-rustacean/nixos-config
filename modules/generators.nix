@@ -339,6 +339,9 @@ let
     in
     go 0 theme;
 
+  toGituiTheme = attrs:
+    "(\n${concatStringsSep "\n" (mapAttrsToList (name: value: "    ${name}: Some(\"${value}\"),") attrs)}\n)";
+
   catppuccin = {
     mocha = {
       rosewater = "#f5e0dc";
@@ -377,6 +380,7 @@ in
       toKDL
       toSCFG
       toOMP
+      toGituiTheme
       catppuccin
       ;
   };
