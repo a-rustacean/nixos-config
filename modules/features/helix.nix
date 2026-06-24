@@ -1,7 +1,7 @@
 { self, ... }:
 {
   perSystem =
-    { pkgs, lib, ... }:
+    { pkgs, ... }:
     {
       packages.helix = self.lib.wrappers.helix.wrap {
         inherit pkgs;
@@ -66,42 +66,6 @@
               tabpad = "all";
             };
           };
-        };
-        languages = {
-          language =
-            (map
-              (lang: {
-                name = lang;
-                formatter.command = lib.getExe pkgs.oxfmt;
-                auto-format = true;
-              })
-              [
-                "javascript"
-                "jsx"
-                "typescript"
-                "tsx"
-                "json"
-                "jsonc"
-                "json5"
-                "yaml"
-                "toml"
-                "html"
-                "vue"
-                "svelte"
-                "css"
-                "scss"
-                "less"
-                "markdown"
-                "graphql"
-              ]
-            )
-            ++ [
-              {
-                name = "nix";
-                formatter.command = lib.getExe pkgs.nixfmt;
-                auto-format = true;
-              }
-            ];
         };
       };
     };

@@ -48,12 +48,12 @@ in
           pkgs,
           settings,
           themes ? { },
-          languages,
+          languages ? { },
           runtimePkgs ? [ ],
         }:
         inputs.wrapper-modules.wrappers.helix.wrap {
           inherit pkgs;
-          package = inputs.helix.packages.${system pkgs}.helix;
+          package = pkgs.helix;
           inherit
             runtimePkgs
             settings
