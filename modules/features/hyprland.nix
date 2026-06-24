@@ -41,8 +41,8 @@
           HYPRLAND_PROGRAM_QUICKSHELL = lib.getExe self'.packages.quickshell;
           HYPRLAND_PROGRAM_DUNST = lib.getExe self'.packages.dunst;
           # TODO: use hyprcursor
-          XCURSOR_PATH = "${pkgs.capitaine-cursors}/share/icons";
-          XCURSOR_THEME = "capitaine-cursors";
+          XCURSOR_PATH = "${pkgs.bibata-cursors}/share/icons";
+          XCURSOR_THEME = "Bibata-Modern-Ice";
           XCURSOR_SIZE = "24";
         };
       };
