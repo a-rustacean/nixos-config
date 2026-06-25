@@ -87,6 +87,7 @@
         self.packages.${pkgs.stdenv.hostPlatform.system}.cava
         self.packages.${pkgs.stdenv.hostPlatform.system}.btop
         self.packages.${pkgs.stdenv.hostPlatform.system}.fzf
+        self.packages.${pkgs.stdenv.hostPlatform.system}.fastfetch
         pkgs.nh
       ];
 
