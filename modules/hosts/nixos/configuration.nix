@@ -89,6 +89,7 @@
         self.packages.${pkgs.stdenv.hostPlatform.system}.fzf
         self.packages.${pkgs.stdenv.hostPlatform.system}.fastfetch
         pkgs.nh
+        self.packages.${pkgs.stdenv.hostPlatform.system}.opencode
       ];
 
       services.openssh.enable = true;
