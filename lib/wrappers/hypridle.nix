@@ -1,0 +1,2 @@
+{ mkHyprWrapper, ... }:
+mkHyprWrapper "hypridle"
