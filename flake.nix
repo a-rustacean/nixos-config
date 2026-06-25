@@ -8,7 +8,7 @@
     import-tree.url = "github:vic/import-tree";
 
     # <https://github.com/nix-systems/nix-systems>
-    systems.url = "github:nix-systems/default-linux";
+    systems.url = "github:nix-systems/default";
 
     wrapper-modules = {
       url = "github:BirdeeHub/nix-wrapper-modules";
