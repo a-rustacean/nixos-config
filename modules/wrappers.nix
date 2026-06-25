@@ -320,6 +320,75 @@ in
         wrapperScript;
     };
 
+    btop = {
+      wrap =
+        {
+          pkgs,
+          settings,
+          runtimePkgs ? [ ],
+        }:
+        let
+          toBtoprc = attrs:
+            lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value:
+              let
+                rendered = if builtins.isBool value then (if value then "True" else "False") else if builtins.isString value then "\"${value}\"" else toString value;
+              in
+              "${name} = ${rendered}"
+            ) attrs);
+
+          btopConfigDir = pkgs.symlinkJoin {
+            name = "btop-config";
+            paths = [
+              (pkgs.writeTextDir "btop/btop.conf" (toBtoprc settings))
+              (pkgs.runCommandLocal "btop-themes" { } ''
+                mkdir -p "$out/btop/themes"
+                for f in ${inputs.catppuccin-btop}/themes/*.theme; do
+                  ln -s "$f" "$out/btop/themes/$(basename "$f")"
+                done
+              '')
+            ];
+          };
+        in
+        wrapPackage (
+          { ... }: {
+            inherit pkgs;
+            package = pkgs.btop;
+            inherit runtimePkgs;
+            env = {
+              XDG_CONFIG_HOME = "${btopConfigDir}";
+            };
+          }
+        );
+    };
+
+    htop = {
+      wrap =
+        {
+          pkgs,
+          settings,
+          runtimePkgs ? [ ],
+        }:
+        let
+          toHtoprc = attrs:
+            lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value:
+              let
+                rendered = if builtins.isBool value then (if value then "1" else "0") else toString value;
+              in
+              "${name}=${rendered}"
+            ) attrs);
+        in
+        wrapPackage (
+          { ... }: {
+            inherit pkgs;
+            package = pkgs.htop;
+            inherit runtimePkgs;
+            env = {
+              HTOPRC = pkgs.writeText "htoprc" (toHtoprc settings);
+            };
+          }
+        );
+    };
+
     hyprland = {
       wrap =
         {
