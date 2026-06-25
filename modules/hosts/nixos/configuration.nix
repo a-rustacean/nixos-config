@@ -86,6 +86,7 @@
         self.packages.${pkgs.stdenv.hostPlatform.system}.gitui
         self.packages.${pkgs.stdenv.hostPlatform.system}.cava
         self.packages.${pkgs.stdenv.hostPlatform.system}.btop
+        pkgs.nh
       ];
 
       services.openssh.enable = true;
