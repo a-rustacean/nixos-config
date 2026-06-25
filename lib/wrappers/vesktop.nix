@@ -42,21 +42,25 @@
 
         mkdir -p "$DATA_DIR/settings" "$DATA_DIR/themes"
 
-        cp --remove-destination "$(readlink -f "${storeConfig}/settings.json")" "$DATA_DIR/settings.json"
-        cp --remove-destination "$(readlink -f "${storeConfig}/settings/settings.json")" "$DATA_DIR/settings/settings.json"
+        rm -f "$DATA_DIR/settings.json"
+        cp "${storeConfig}/settings.json" "$DATA_DIR/settings.json"
+        rm -f "$DATA_DIR/settings/settings.json"
+        cp "${storeConfig}/settings/settings.json" "$DATA_DIR/settings/settings.json"
 
         ${lib.optionalString (quickCss != "") ''
-          cp --remove-destination "$(readlink -f "${storeConfig}/settings/quickCss.css")" "$DATA_DIR/settings/quickCss.css"
+          rm -f "$DATA_DIR/settings/quickCss.css"
+          cp "${storeConfig}/settings/quickCss.css" "$DATA_DIR/settings/quickCss.css"
         ''}
 
         ${lib.optionalString (themes != { }) ''
           for f in "${storeConfig}"/themes/*; do
-            [ -e "$f" ] && cp --remove-destination "$(readlink -f "$f")" "$DATA_DIR/themes/$(basename "$f")"
+            [ -e "$f" ] && rm -f "$DATA_DIR/themes/$(basename "$f")" && cp "$f" "$DATA_DIR/themes/$(basename "$f")"
           done
         ''}
 
         ${lib.optionalString (rgbStrip != null) ''
-          cp --remove-destination "$(readlink -f "${storeConfig}/rgbStrip.json")" "$DATA_DIR/rgbStrip.json"
+          rm -f "$DATA_DIR/rgbStrip.json"
+          cp "${storeConfig}/rgbStrip.json" "$DATA_DIR/rgbStrip.json"
         ''}
 
         export VENCORD_USER_DATA_DIR="$DATA_DIR"
