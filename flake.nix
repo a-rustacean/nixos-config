@@ -221,6 +221,11 @@
         hyprwayland-scanner.follows = "hyprwayland-scanner";
       };
     };
+
+    catppuccin-btop = {
+      url = "github:catppuccin/btop";
+      flake = false;
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
