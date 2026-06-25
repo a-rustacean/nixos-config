@@ -10,7 +10,7 @@ in
         inherit pkgs;
         settings = {
           color_theme = "catppuccin_mocha";
-          theme_background = false;
+          theme_background = true;
         };
       };
     };
