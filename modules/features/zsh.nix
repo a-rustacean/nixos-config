@@ -48,7 +48,7 @@
 
             HISTSIZE="10000"
             SAVEHIST="10000"
-            HISTFILE="/home/$USER/.zsh_history"
+            HISTFILE="$HOME/.zsh_history"
 
             export EDITOR=${lib.getExe self'.packages.helix}
           '';
