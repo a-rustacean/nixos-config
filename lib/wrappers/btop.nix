@@ -7,13 +7,23 @@
       runtimePkgs ? [ ],
     }:
     let
-      toBtoprc = attrs:
-        lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value:
-          let
-            rendered = if builtins.isBool value then (if value then "True" else "False") else if builtins.isString value then "\"${value}\"" else toString value;
-          in
-          "${name} = ${rendered}"
-        ) attrs);
+      toBtoprc =
+        attrs:
+        lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (
+            name: value:
+            let
+              rendered =
+                if builtins.isBool value then
+                  (if value then "True" else "False")
+                else if builtins.isString value then
+                  "\"${value}\""
+                else
+                  toString value;
+            in
+            "${name} = ${rendered}"
+          ) attrs
+        );
 
       btopConfigDir = pkgs.symlinkJoin {
         name = "btop-config";

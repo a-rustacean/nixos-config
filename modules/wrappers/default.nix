@@ -1,4 +1,9 @@
-{ self, inputs, lib, ... }:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
 let
   inherit (builtins) readDir;
 
@@ -36,31 +41,36 @@ let
           }
         )
       else
-        pkgs.runCommand "${name}-wrapper" {
-          meta = {
-            platforms = lib.platforms.linux;
-            badPlatforms = lib.platforms.darwin;
-          };
-        } ''
-          echo "${name} is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
-          exit 1
-        '';
+        pkgs.runCommand "${name}-wrapper"
+          {
+            meta = {
+              platforms = lib.platforms.linux;
+              badPlatforms = lib.platforms.darwin;
+            };
+          }
+          ''
+            echo "${name} is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
+            exit 1
+          '';
   };
 
   wrappersDir = ../../lib/wrappers;
 
   wrapperFiles = lib.filterAttrs (n: v: v == "regular") (readDir wrappersDir);
 
-  wrappers = lib.mapAttrs' (name: _:
-    lib.nameValuePair (lib.removeSuffix ".nix" name) (import (wrappersDir + "/${name}") {
-      inherit
-        self
-        inputs
-        lib
-        wrapPackage
-        ;
-      mkHyprWrapper = mkHyprWrapper wrapPackage;
-    })
+  wrappers = lib.mapAttrs' (
+    name: _:
+    lib.nameValuePair (lib.removeSuffix ".nix" name) (
+      import (wrappersDir + "/${name}") {
+        inherit
+          self
+          inputs
+          lib
+          wrapPackage
+          ;
+        mkHyprWrapper = mkHyprWrapper wrapPackage;
+      }
+    )
   ) wrapperFiles;
 in
 {

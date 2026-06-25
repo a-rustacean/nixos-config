@@ -13,15 +13,17 @@
         if pkgs.stdenv.hostPlatform.isLinux then
           inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty
         else
-          pkgs.runCommand "ghostty-unavailable" {
-            meta = {
-              platforms = lib.platforms.linux;
-              badPlatforms = lib.platforms.darwin;
-            };
-          } ''
-            echo "ghostty is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
-            exit 1
-          '';
+          pkgs.runCommand "ghostty-unavailable"
+            {
+              meta = {
+                platforms = lib.platforms.linux;
+                badPlatforms = lib.platforms.darwin;
+              };
+            }
+            ''
+              echo "ghostty is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
+              exit 1
+            '';
     in
     inputs.wrapper-modules.lib.wrapPackage (
       { ... }:

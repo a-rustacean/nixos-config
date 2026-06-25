@@ -30,13 +30,15 @@
         }
       )
     else
-      pkgs.runCommand "cava-wrapper" {
-        meta = {
-          platforms = lib.platforms.linux;
-          badPlatforms = lib.platforms.darwin;
-        };
-      } ''
-        echo "cava is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
-        exit 1
-      '';
+      pkgs.runCommand "cava-wrapper"
+        {
+          meta = {
+            platforms = lib.platforms.linux;
+            badPlatforms = lib.platforms.darwin;
+          };
+        }
+        ''
+          echo "cava is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
+          exit 1
+        '';
 }

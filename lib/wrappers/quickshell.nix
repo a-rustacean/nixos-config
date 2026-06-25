@@ -22,13 +22,15 @@
         }
       )
     else
-      pkgs.runCommand "quickshell-wrapper" {
-        meta = {
-          platforms = lib.platforms.linux;
-          badPlatforms = lib.platforms.darwin;
-        };
-      } ''
-        echo "quickshell is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
-        exit 1
-      '';
+      pkgs.runCommand "quickshell-wrapper"
+        {
+          meta = {
+            platforms = lib.platforms.linux;
+            badPlatforms = lib.platforms.darwin;
+          };
+        }
+        ''
+          echo "quickshell is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
+          exit 1
+        '';
 }
