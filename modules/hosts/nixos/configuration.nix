@@ -52,9 +52,6 @@
       # TODO: remove hardcoded
       time.timeZone = "Asia/Kolkata";
 
-      # TODO: remove Ly
-      services.displayManager.ly.enable = true;
-
       services.pulseaudio.enable = false;
       security.rtkit.enable = true;
       services.pipewire = {

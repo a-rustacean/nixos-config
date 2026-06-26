@@ -1,13 +1,25 @@
 { self, inputs, ... }:
 {
   flake.nixosModules.hyprland =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     {
       programs.hyprland = {
         enable = true;
         xwayland.enable = true;
         package = self.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
         portalPackage = self.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      };
+
+      services.greetd = {
+        enable = true;
+        settings = rec {
+          initial_session = {
+            command = "${config.programs.hyprland.package}/bin/start-hyprland";
+            # TODO: no-hardcode
+            user = "dilshad";
+          };
+          default_session = initial_session;
+        };
       };
     };
 
