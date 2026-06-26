@@ -14,7 +14,7 @@
         enable = true;
         settings = rec {
           initial_session = {
-            command = "${config.programs.hyprland.package}/bin/start-hyprland";
+            command = "${pkgs.dbus}/bin/dbus-run-session ${config.programs.hyprland.package}/bin/start-hyprland";
             # TODO: no-hardcode
             user = "dilshad";
           };
