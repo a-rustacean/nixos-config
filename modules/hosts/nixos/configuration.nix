@@ -76,18 +76,22 @@
       programs.dconf.enable = true;
       programs.nix-ld.enable = true;
 
-      environment.systemPackages = [
-        self.packages.${pkgs.stdenv.hostPlatform.system}.helix
-        self.packages.${pkgs.stdenv.hostPlatform.system}.git
-        self.packages.${pkgs.stdenv.hostPlatform.system}.vesktop
-        self.packages.${pkgs.stdenv.hostPlatform.system}.gitui
-        self.packages.${pkgs.stdenv.hostPlatform.system}.cava
-        self.packages.${pkgs.stdenv.hostPlatform.system}.btop
-        self.packages.${pkgs.stdenv.hostPlatform.system}.fzf
-        self.packages.${pkgs.stdenv.hostPlatform.system}.fastfetch
-        pkgs.nh
-        self.packages.${pkgs.stdenv.hostPlatform.system}.opencode
-      ];
+      environment.systemPackages =
+        (with self.packages.${pkgs.stdenv.hostPlatform.system}; [
+          helix
+          git
+          vesktop
+          gitui
+          cava
+          btop
+          fzf
+          fastfetch
+          opencode
+        ])
+        ++ [
+          pkgs.nh
+          pkgs.firefox
+        ];
 
       services.openssh.enable = true;
     };
