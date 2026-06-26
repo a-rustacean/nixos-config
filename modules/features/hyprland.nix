@@ -21,6 +21,23 @@
           default_session = initial_session;
         };
       };
+
+      environment.systemPackages = [
+        pkgs.adw-gtk3
+        pkgs.libsForQt5.qt5ct
+        pkgs.qt6Packages.qt6ct
+      ];
+
+      environment.variables.QT_QPA_PLATFORMTHEME = "qt6ct";
+
+      programs.dconf.profiles.user.databases = [{
+        settings = {
+          "org/gnome/desktop/interface" = {
+            color-scheme = "prefer-dark";
+            gtk-theme = "adw-gtk3-dark";
+          };
+        };
+      }];
     };
 
   perSystem =
