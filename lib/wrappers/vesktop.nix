@@ -71,5 +71,21 @@
         exec ${lib.escapeShellArg vesktopBin} "$@"
       '';
     in
-    wrapperScript;
+    pkgs.symlinkJoin {
+      name = "vesktop";
+      paths = [
+        wrapperScript
+        (pkgs.writeTextDir "share/applications/vesktop.desktop" ''
+          [Desktop Entry]
+          Name=Vesktop
+          Comment=Discord client with Vencord
+          Exec=${lib.getExe wrapperScript}
+          Icon=vesktop
+          Terminal=false
+          Type=Application
+          Categories=Network;InstantMessaging;
+          StartupWMClass=vesktop
+        '')
+      ];
+    };
 }
