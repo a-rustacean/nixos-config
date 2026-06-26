@@ -10,13 +10,14 @@ require("keybinds")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
   general = {
-    gaps_in          = 6,
-    gaps_out         = 12,
-    border_size      = 3,
+    gaps_in          = 5,
+    gaps_out         = 10,
+    border_size      = 2,
 
     col              = {
       active_border   = "rgb(cdd6f4)", -- Text
-      inactive_border = "rgb(313244)", -- Surface 0
+      inactive_border = "rgb(45475a)", -- Surface 1
+      nogroup_border  = "rgb(45475a)", -- Surface 1
     },
 
     resize_on_border = false,
@@ -25,29 +26,33 @@ hl.config({
   },
 
   decoration = {
-    rounding         = 10,
+    rounding         = 12,
     rounding_power   = 2,
-    active_opacity   = 1,
-    inactive_opacity = 0.8,
+    active_opacity   = 1.0,
+    inactive_opacity = 0.85,
+    fullscreen_opacity = 1.0,
 
     shadow           = {
       enabled      = true,
-      range        = 4,
+      range        = 8,
       render_power = 3,
       color        = 0xee1a1a1a,
+      color_inactive = 0x661a1a1a,
     },
 
     blur = {
       enabled = true;
-      size = 12;
-      passes = 2;
+      size = 14;
+      passes = 3;
       ignore_opacity = true;
       new_optimizations = true;
-      noise = 0.1;
-      contrast = 0.9;
-      brightness = 0.6;
-      vibrancy = 0.2;
+      noise = 0.01;
+      contrast = 0.8;
+      brightness = 0.7;
+      vibrancy = 0.4;
+      vibrancy_darkness = 0.0;
       popups = true;
+      xray = true;
     }
   },
 
