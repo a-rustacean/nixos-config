@@ -1,4 +1,4 @@
-{ self, inputs, ... }: {
+{ self, ... }: {
   perSystem =
     { pkgs, self', ... }:
     {
@@ -12,7 +12,7 @@
           cursor-style = block
           mouse-hide-while-typing = true
           scroll-to-bottom = keystroke, output
-          theme = nix-theme
+          theme = Catppuccin Mocha
           # restore XDG_CONFIG_HOME
           env = XDG_CONFIG_HOME=~/.config
 
@@ -26,9 +26,6 @@
           shell-integration = detect
           shell-integration-features = no-cursor, sudo
         '';
-        theme = builtins.readFile "${
-          inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.ghostty
-        }/catppuccin-mocha.conf";
         fontPackage = pkgs.nerd-fonts.jetbrains-mono;
       };
     };

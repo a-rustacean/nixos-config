@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ lib, wrapPackage, ... }:
 {
   wrap =
     {
@@ -9,13 +9,13 @@
     }:
     if pkgs.stdenv.hostPlatform.isLinux then
       lib.extendDerivation true
-        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland.passthru
+        pkgs.hyprland.passthru
         (
-          inputs.wrapper-modules.lib.wrapPackage (
+          wrapPackage (
             { ... }:
             {
               inherit pkgs;
-              package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+              package = pkgs.hyprland;
               inherit runtimePkgs flags env;
             }
           )

@@ -1,4 +1,23 @@
-{ inputs, lib, ... }:
+{ lib, wrapPackage, ... }:
+let
+  toBtoprc =
+    attrs:
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (
+        name: value:
+        let
+          rendered =
+            if builtins.isBool value then
+              (if value then "True" else "False")
+            else if builtins.isString value then
+              "\"${value}\""
+            else
+              toString value;
+        in
+        "${name} = ${rendered}"
+      ) attrs
+    );
+in
 {
   wrap =
     {
@@ -7,23 +26,10 @@
       runtimePkgs ? [ ],
     }:
     let
-      toBtoprc =
-        attrs:
-        lib.concatStringsSep "\n" (
-          lib.mapAttrsToList (
-            name: value:
-            let
-              rendered =
-                if builtins.isBool value then
-                  (if value then "True" else "False")
-                else if builtins.isString value then
-                  "\"${value}\""
-                else
-                  toString value;
-            in
-            "${name} = ${rendered}"
-          ) attrs
-        );
+      btopTheme = pkgs.catppuccin.override {
+        variant = "mocha";
+        themeList = [ "btop" ];
+      };
 
       btopConfigDir = pkgs.symlinkJoin {
         name = "btop-config";
@@ -31,14 +37,12 @@
           (pkgs.writeTextDir "btop/btop.conf" (toBtoprc settings))
           (pkgs.runCommandLocal "btop-themes" { } ''
             mkdir -p "$out/btop/themes"
-            for f in ${inputs.catppuccin-btop}/themes/*.theme; do
-              ln -s "$f" "$out/btop/themes/$(basename "$f")"
-            done
+            ln -s ${btopTheme}/btop/catppuccin_mocha.theme "$out/btop/themes/catppuccin_mocha.theme"
           '')
         ];
       };
     in
-    inputs.wrapper-modules.lib.wrapPackage (
+    wrapPackage (
       { ... }: {
         inherit pkgs;
         package = pkgs.btop;

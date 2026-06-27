@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ lib, wrapPackage, ... }:
 {
   wrap =
     {
@@ -11,13 +11,14 @@
     let
       ghosttyPkg =
         if pkgs.stdenv.hostPlatform.isLinux then
-          inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty
+          pkgs.ghostty
+        else if pkgs.stdenv.hostPlatform.isDarwin then
+          pkgs.ghostty-bin
         else
           pkgs.runCommand "ghostty-unavailable"
             {
               meta = {
-                platforms = lib.platforms.linux;
-                badPlatforms = lib.platforms.darwin;
+                platforms = lib.platforms.linux ++ lib.platforms.darwin;
               };
             }
             ''
@@ -25,7 +26,7 @@
               exit 1
             '';
     in
-    inputs.wrapper-modules.lib.wrapPackage (
+    wrapPackage (
       { ... }:
       {
         inherit pkgs;

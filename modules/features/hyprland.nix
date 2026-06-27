@@ -1,4 +1,4 @@
-{ self, inputs, ... }:
+{ self, ... }:
 {
   flake.nixosModules.hyprland =
     { pkgs, config, ... }:
@@ -91,10 +91,8 @@
         };
       };
 
-      packages.xdg-desktop-portal-hyprland =
-        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-      packages.hyprshutdown =
-        inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.hyprshutdown;
-      packages.hyprpicker = inputs.hyprpicker.packages.${pkgs.stdenv.hostPlatform.system}.hyprpicker;
+      packages.xdg-desktop-portal-hyprland = pkgs.xdg-desktop-portal-hyprland;
+      packages.hyprshutdown = pkgs.hyprshutdown;
+      packages.hyprpicker = pkgs.hyprpicker;
     };
 }

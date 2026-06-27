@@ -7,8 +7,6 @@
 let
   inherit (builtins) readDir;
 
-  system = pkgs: pkgs.stdenv.hostPlatform.system;
-
   wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
 
   mkHyprWrapper = wrap: name: {
@@ -26,7 +24,7 @@ let
           { ... }:
           {
             inherit pkgs;
-            package = inputs.${name}.packages.${system pkgs}.${name};
+            package = pkgs.${name};
             inherit runtimePkgs;
             flags = {
               "--config" = pkgs.writeText "${name}.conf" (

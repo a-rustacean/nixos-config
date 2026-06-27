@@ -16,19 +16,6 @@
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
       nix.settings = {
-        substituters = [
-          "https://hyprland.cachix.org"
-          "https://helix.cachix.org"
-        ];
-        trusted-substituters = [
-          "https://hyprland.cachix.org"
-          "https://helix.cachix.org"
-        ];
-        trusted-public-keys = [
-          "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-          "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-        ];
-
         experimental-features = [
           "nix-command"
           "flakes"
