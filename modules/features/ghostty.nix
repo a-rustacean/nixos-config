@@ -12,6 +12,7 @@
           cursor-style = block
           mouse-hide-while-typing = true
           scroll-to-bottom = keystroke, output
+          confirm-close-surface = false
           theme = Catppuccin Mocha
           # restore XDG_CONFIG_HOME
           env = XDG_CONFIG_HOME=~/.config
