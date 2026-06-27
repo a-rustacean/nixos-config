@@ -1,8 +1,10 @@
-{ ... }:
+{ self, ... }:
 {
   perSystem =
     { pkgs, ... }:
     {
-      packages.hyprlauncher = pkgs.hyprlauncher;
+      packages.hyprlauncher = self.lib.wrappers.hyprlauncher.wrap {
+        inherit pkgs;
+      };
     };
 }
