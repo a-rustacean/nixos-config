@@ -1,6 +1,6 @@
 { self, ... }:
 let
-  ctp = self.lib.generators.catppuccin.mocha;
+  ctp = self.lib.colors.catppuccin.mocha;
   hex = color: builtins.substring 1 6 color;
 in
 {
@@ -30,7 +30,7 @@ in
 
           background = [
             {
-              path = "${../../wallpaper.jpg}";
+              path = "${../../lib/configs/wallpaper.jpg}";
               blur_passes = 4;
               blur_size = 8;
               contrast = 0.8;

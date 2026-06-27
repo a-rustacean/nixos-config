@@ -1,4 +1,7 @@
 { self, inputs, ... }:
+let
+  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
+in
 {
   wrap =
     {
@@ -6,7 +9,7 @@
       config,
       runtimePkgs ? [ ],
     }:
-    inputs.wrapper-modules.lib.wrapPackage (
+    wrapPackage (
       { ... }: {
         inherit pkgs;
         package = pkgs.oh-my-posh;

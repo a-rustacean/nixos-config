@@ -14,7 +14,7 @@
         enable = true;
         settings = rec {
           initial_session = {
-            command = "${pkgs.dbus}/bin/dbus-run-session ${config.programs.hyprland.package}/bin/start-hyprland";
+            command = "${config.programs.hyprland.package}/bin/start-hyprland";
             # TODO: no-hardcode
             user = "dilshad";
           };
@@ -75,7 +75,7 @@
           wl-clipboard
         ];
         flags = {
-          "--config" = "${../../hyprland}/hyprland.lua";
+          "--config" = "${../../lib/configs/hyprland}/hyprland.lua";
         };
         env = {
           HYPRLAND_PROGRAM_GHOSTTY = lib.getExe self'.packages.ghostty;

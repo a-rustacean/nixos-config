@@ -1,4 +1,7 @@
 { inputs, lib, ... }:
+let
+  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
+in
 {
   wrap =
     {
@@ -11,7 +14,7 @@
         "--config" = pkgs.writeText "fastfetch.jsonc" (builtins.toJSON settings);
       };
     in
-    inputs.wrapper-modules.lib.wrapPackage (
+    wrapPackage (
       { ... }: {
         inherit pkgs;
         package = pkgs.fastfetch;

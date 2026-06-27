@@ -1,4 +1,7 @@
 { inputs, lib, ... }:
+let
+  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
+in
 {
   wrap =
     {
@@ -9,7 +12,7 @@
       extraFlags ? { },
     }:
     if pkgs.stdenv.hostPlatform.isLinux then
-      inputs.wrapper-modules.lib.wrapPackage (
+      wrapPackage (
         { ... }: {
           inherit pkgs;
           package = pkgs.quickshell;

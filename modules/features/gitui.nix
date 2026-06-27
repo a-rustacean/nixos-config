@@ -1,6 +1,6 @@
 { self, ... }:
 let
-  ctp = self.lib.generators.catppuccin.mocha;
+  ctp = self.lib.colors.catppuccin.mocha;
 in
 {
   perSystem =

@@ -1,4 +1,14 @@
 { inputs, lib, ... }:
+let
+  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
+  isHex = s: builtins.isString s && builtins.substring 0 1 s == "#";
+  quoteHex = v: if isHex v then "'${v}'" else toString v;
+  iniKeyValue = name: value: "${name} = ${quoteHex value}";
+  iniSection = name: attrs: ''
+    [${name}]
+    ${lib.concatStringsSep "\n" (lib.mapAttrsToList iniKeyValue attrs)}
+  '';
+in
 {
   wrap =
     {
@@ -7,17 +17,8 @@
       colors,
       runtimePkgs ? [ ],
     }:
-    let
-      isHex = s: builtins.isString s && builtins.substring 0 1 s == "#";
-      quoteHex = v: if isHex v then "'${v}'" else toString v;
-      iniKeyValue = name: value: "${name} = ${quoteHex value}";
-      iniSection = name: attrs: ''
-        [${name}]
-        ${lib.concatStringsSep "\n" (lib.mapAttrsToList iniKeyValue attrs)}
-      '';
-    in
     if pkgs.stdenv.hostPlatform.isLinux then
-      inputs.wrapper-modules.lib.wrapPackage (
+      wrapPackage (
         { ... }: {
           inherit pkgs;
           package = pkgs.cava;

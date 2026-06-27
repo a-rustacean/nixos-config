@@ -1,4 +1,7 @@
 { inputs, lib, ... }:
+let
+  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
+in
 {
   wrap =
     {
@@ -17,7 +20,7 @@
           OPENCODE_TUI_CONFIG = pkgs.writeText "tui.json" (builtins.toJSON tui);
         };
     in
-    inputs.wrapper-modules.lib.wrapPackage (
+    wrapPackage (
       { ... }: {
         inherit pkgs;
         package = pkgs.opencode;
