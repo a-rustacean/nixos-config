@@ -45,14 +45,16 @@
         theme=Catppuccin-Mocha-Blue
       '';
 
-      programs.dconf.profiles.user.databases = [{
-        settings = {
-          "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
-            gtk-theme = "catppuccin-mocha-blue-standard";
+      programs.dconf.profiles.user.databases = [
+        {
+          settings = {
+            "org/gnome/desktop/interface" = {
+              color-scheme = "prefer-dark";
+              gtk-theme = "catppuccin-mocha-blue-standard";
+            };
           };
-        };
-      }];
+        }
+      ];
     };
 
   perSystem =

@@ -8,18 +8,16 @@
       env ? { },
     }:
     if pkgs.stdenv.hostPlatform.isLinux then
-      lib.extendDerivation true
-        pkgs.hyprland.passthru
-        (
-          wrapPackage (
-            { ... }:
-            {
-              inherit pkgs;
-              package = pkgs.hyprland;
-              inherit runtimePkgs flags env;
-            }
-          )
+      lib.extendDerivation true pkgs.hyprland.passthru (
+        wrapPackage (
+          { ... }:
+          {
+            inherit pkgs;
+            package = pkgs.hyprland;
+            inherit runtimePkgs flags env;
+          }
         )
+      )
     else
       pkgs.runCommand "hyprland-wrapper"
         {
