@@ -311,6 +311,12 @@ let
     optionalString (directives != [ ]) ''
       ${concatStringsSep "\n" (convertDirectivesToSCFG directives)}
     '';
+  toUserJs =
+    settings:
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (name: value: "user_pref(\"${name}\", ${builtins.toJSON value});") settings
+    );
+
   toOMP =
     theme:
     let
@@ -352,5 +358,6 @@ in
     toSCFG
     toOMP
     toGituiTheme
+    toUserJs
     ;
 }

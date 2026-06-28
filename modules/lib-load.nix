@@ -17,6 +17,9 @@ let
 
   platformGuard = import (root + "/lib/platformGuard.nix") { inherit lib; };
 
+  mkStoreConfigWrapper =
+    (import (root + "/lib/mkStoreConfigWrapper.nix") { inherit lib; }).mkStoreConfigWrapper;
+
   mkHyprWrapper = import (root + "/lib/mkHyprWrapper.nix") {
     inherit
       self
@@ -40,6 +43,7 @@ let
           wrapPackage
           mkHyprWrapper
           platformGuard
+          mkStoreConfigWrapper
           ;
       }
     )
@@ -52,6 +56,7 @@ in
       wrappers
       wrapPackage
       platformGuard
+      mkStoreConfigWrapper
       ;
     colors = { inherit catppuccin; };
   };
