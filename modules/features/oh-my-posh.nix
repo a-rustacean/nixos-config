@@ -3,7 +3,7 @@
   perSystem = { pkgs, ... }: {
     packages.oh-my-posh = self.lib.wrappers.oh-my-posh.wrap {
       inherit pkgs;
-      config = {
+      settings = {
         version = 2;
         final_space = true;
         console_title = "{{ .Shell }} in {{ .Folder }}";

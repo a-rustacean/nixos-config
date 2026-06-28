@@ -15,12 +15,13 @@ let
 
   catppuccin = import (root + "/lib/catppuccin.nix") { };
 
+  platformGuard = import (root + "/lib/platformGuard.nix") { inherit lib; };
+
   mkHyprWrapper = import (root + "/lib/mkHyprWrapper.nix") {
     inherit
       self
-      inputs
-      lib
       wrapPackage
+      platformGuard
       ;
   };
 
@@ -38,6 +39,7 @@ let
           lib
           wrapPackage
           mkHyprWrapper
+          platformGuard
           ;
       }
     )
@@ -45,7 +47,12 @@ let
 in
 {
   flake.lib = {
-    inherit generators wrappers;
+    inherit
+      generators
+      wrappers
+      wrapPackage
+      platformGuard
+      ;
     colors = { inherit catppuccin; };
   };
 }

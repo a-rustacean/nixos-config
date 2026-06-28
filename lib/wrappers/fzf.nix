@@ -1,6 +1,5 @@
-{ inputs, lib, ... }:
+{ lib, wrapPackage, ... }:
 let
-  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
   renderValue =
     v:
     if builtins.isBool v then

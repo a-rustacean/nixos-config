@@ -5,7 +5,7 @@
       packages.ghostty = self.lib.wrappers.ghostty.wrap {
         inherit pkgs;
         runtimePkgs = [ self'.packages.zsh ];
-        config = ''
+        settings = ''
           language = en
           font-family = "JetBrainsMono Nerd Font"
           font-size = 16

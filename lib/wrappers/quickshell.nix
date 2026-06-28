@@ -1,7 +1,4 @@
-{ inputs, lib, ... }:
-let
-  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
-in
+{ wrapPackage, platformGuard, ... }:
 {
   wrap =
     {
@@ -11,8 +8,10 @@ in
       env ? { },
       extraFlags ? { },
     }:
-    if pkgs.stdenv.hostPlatform.isLinux then
-      wrapPackage (
+    platformGuard {
+      inherit pkgs;
+      name = "quickshell";
+      body = wrapPackage (
         { ... }: {
           inherit pkgs;
           package = pkgs.quickshell;
@@ -23,17 +22,6 @@ in
           // extraFlags;
           inherit env;
         }
-      )
-    else
-      pkgs.runCommand "quickshell-wrapper"
-        {
-          meta = {
-            platforms = lib.platforms.linux;
-            badPlatforms = lib.platforms.darwin;
-          };
-        }
-        ''
-          echo "quickshell is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
-          exit 1
-        '';
+      );
+    };
 }

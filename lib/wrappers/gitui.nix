@@ -1,11 +1,10 @@
 {
   self,
-  inputs,
   lib,
+  wrapPackage,
   ...
 }:
 let
-  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
   renderGitValue = v: if builtins.isBool v then lib.boolToString v else toString v;
 
   toGitconfig =

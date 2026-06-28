@@ -1,7 +1,4 @@
-{ inputs, lib, ... }:
-let
-  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
-in
+{ lib, wrapPackage, ... }:
 {
   wrap =
     {

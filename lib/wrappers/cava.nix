@@ -1,6 +1,5 @@
-{ inputs, lib, ... }:
+{ lib, wrapPackage, platformGuard, ... }:
 let
-  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
   isHex = s: builtins.isString s && builtins.substring 0 1 s == "#";
   quoteHex = v: if isHex v then "'${v}'" else toString v;
   iniKeyValue = name: value: "${name} = ${quoteHex value}";
@@ -17,8 +16,10 @@ in
       colors,
       runtimePkgs ? [ ],
     }:
-    if pkgs.stdenv.hostPlatform.isLinux then
-      wrapPackage (
+    platformGuard {
+      inherit pkgs;
+      name = "cava";
+      body = wrapPackage (
         { ... }: {
           inherit pkgs;
           package = pkgs.cava;
@@ -29,17 +30,6 @@ in
             );
           };
         }
-      )
-    else
-      pkgs.runCommand "cava-wrapper"
-        {
-          meta = {
-            platforms = lib.platforms.linux;
-            badPlatforms = lib.platforms.darwin;
-          };
-        }
-        ''
-          echo "cava is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
-          exit 1
-        '';
+      );
+    };
 }

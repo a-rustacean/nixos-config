@@ -6,7 +6,7 @@ in
   wrap =
     {
       pkgs,
-      config,
+      settings,
       runtimePkgs ? [ ],
     }:
     wrapPackage (
@@ -15,7 +15,7 @@ in
         package = pkgs.oh-my-posh;
         inherit runtimePkgs;
         flags = {
-          "--config" = pkgs.writeText "oh-my-posh.json" (self.lib.generators.toOMP config);
+          "--config" = pkgs.writeText "oh-my-posh.json" (self.lib.generators.toOMP settings);
         };
       }
     );

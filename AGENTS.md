@@ -18,6 +18,7 @@ This repo follows the **dendritic pattern** — every `.nix` file under `modules
 - **`lib/generators.nix`** — config serializers: `toHyprconf`, `toKDL`, `toSCFG`, `toOMP`, `toGituiTheme`. Exposed as `self.lib.generators`.
 - **`lib/catppuccin.nix`** — Catppuccin Mocha palette. Exposed as `self.lib.colors.catppuccin`.
 - **`lib/mkHyprWrapper.nix`** — utility function (not a module) for creating Hyprland-ecosystem wrappers. Imported by the 4 hypr wrapper files.
+- **`lib/platformGuard.nix`** — utility wrapping the Linux-only platform guard pattern (`if isLinux then body else runCommand`). Auto-imported by `lib-load.nix` and exposed as `self.lib.platformGuard` + injected arg to wrappers.
 - **`lib/configs/`** — static config files: `hyprland/`, `quickshell/`, `wallpaper.jpg`.
 - **`modules/hosts/nixos/`** — single host `work` (hardware config `hardware.nix` is gitignored).
 - **`modules/lib-load.nix`** — aggregator that imports all `lib/` files and populates `self.lib`.
@@ -27,7 +28,10 @@ This repo follows the **dendritic pattern** — every `.nix` file under `modules
 - **Catppuccin Mocha** theme everywhere. Color values from `lib/catppuccin.nix` via `self.lib.colors.catppuccin.mocha`.
 - **JetBrainsMono Nerd Font** is the primary font.
 - **Hyprland config** is Lua (`lib/configs/hyprland/hyprland.lua`). Uses `hl` global API. LuaLS typed via `lib/configs/hyprland/.luarc.json`.
-- **Wrapper pattern**: feature files call `self.lib.wrappers.<name>.wrap { ... }`. Most wrappers use `nix-wrapper-modules` (`github:BirdeeHub/nix-wrapper-modules`). For Hyprland ecosystem programs, use `mkHyprWrapper` from `lib/mkHyprWrapper.nix`.
+- **Wrapper pattern**: feature files call `self.lib.wrappers.<name>.wrap { ... }`. Wrappers receive `wrapPackage`, `mkHyprWrapper`, `platformGuard`, `self`, `inputs`, `lib` as injected arguments from `lib-load.nix`. `wrapPackage` and `platformGuard` are also exposed as `self.lib.wrapPackage` and `self.lib.platformGuard`.
+- **Platform guard**: Linux-only programs use `platformGuard { inherit pkgs name; body = wrapPackage (...); }` instead of duplicating the `if isLinux then ... else runCommand` pattern.
+- **Parameter naming**: The main configuration parameter in `wrap` functions is named `settings`, not `config`, to avoid shadowing the module system keyword.
+- **Hyprland wrappers**: For Hyprland ecosystem programs with `--config`, use `mkHyprWrapper` from `lib/mkHyprWrapper.nix`, which now accepts an optional `package` override.
 - Package env vars (`HYPRLAND_PROGRAM_*`) are set in `modules/features/hyprland.nix` for autostart programs.
 - `nixpkgs` follows `nixos-unstable`.
 
@@ -41,7 +45,7 @@ This repo follows the **dendritic pattern** — every `.nix` file under `modules
 ## Adding a new program
 
 1. **Find config injection method** — search docs/flags for how the program accepts a custom config path (`--config`, `-c`, `XDG_CONFIG_HOME`, `HOME`, env vars, etc.).
-2. **Write wrapper** — create `lib/wrappers/<name>.nix` returning `{ wrap = { pkgs, ... }: ... }`. The wrapper is auto-discovered by `modules/lib-load.nix` and becomes `self.lib.wrappers.<name>`. Use `lib/generators.nix` serializers when applicable. For Hyprland tools with `--config`, use `mkHyprWrapper` from `lib/mkHyprWrapper.nix`.
+2. **Write wrapper** — create `lib/wrappers/<name>.nix` returning `{ wrap = { pkgs, settings, ... }: ... }`. Destructure injected args as needed: `{ wrapPackage, platformGuard, ... }`. Use `lib/generators.nix` serializers when applicable. For Linux-only programs, wrap the body with `platformGuard { inherit pkgs name; body = ...; }`. For Hyprland tools with `--config`, use `mkHyprWrapper` from `lib/mkHyprWrapper.nix`.
 3. **Add feature module** — create `modules/features/<name>.nix` that calls `self.lib.wrappers.<name>.wrap` with settings.
 4. **Add generator (if needed)** — extend `lib/generators.nix` with a new `to<Format>` serializer for bespoke config formats not yet supported.
 
@@ -52,4 +56,6 @@ This repo follows the **dendritic pattern** — every `.nix` file under `modules
 - The `~/.config/opencode/` dir under the repo root is an artifact (not a real instruction source).
 - `nixosConfigurations.work` is hardcoded in `modules/hosts/nixos/default.nix`.
 - `lib/mkHyprWrapper.nix` is NOT a module — it's a pure function imported by wrapper files. Don't add it to `lib-load.nix`.
+- `lib/platformGuard.nix` is NOT a module — it's a pure utility imported by `lib-load.nix` and passed to wrappers. Must be git-added before building.
+- `wrapPackage` and `platformGuard` are available both as injected args to wrappers and via `self.lib.wrapPackage`/`self.lib.platformGuard`.
 - When creating a new pure Nix function file under `lib/`, it must be explicitly imported in `modules/lib-load.nix` to be exposed via `self.lib`.

@@ -1,29 +1,25 @@
 {
   self,
-  inputs,
-  lib,
   wrapPackage,
+  platformGuard,
 }:
-let
-  wrap = wrapPackage;
-in
 name: {
   wrap =
     {
       pkgs,
       settings,
+      package ? pkgs.${name},
       runtimePkgs ? [ ],
       extraFlags ? { },
       extraConfig ? "",
       importantPrefixes ? [ "$" ],
     }:
-    if pkgs.stdenv.hostPlatform.isLinux then
-      wrap (
+    platformGuard {
+      inherit pkgs name;
+      body = wrapPackage (
         { ... }:
         {
-          inherit pkgs;
-          package = pkgs.${name};
-          inherit runtimePkgs;
+          inherit pkgs package runtimePkgs;
           flags = {
             "--config" = pkgs.writeText "${name}.conf" (
               (self.lib.generators.toHyprconf {
@@ -35,17 +31,6 @@ name: {
           }
           // extraFlags;
         }
-      )
-    else
-      pkgs.runCommand "${name}-wrapper"
-        {
-          meta = {
-            platforms = lib.platforms.linux;
-            badPlatforms = lib.platforms.darwin;
-          };
-        }
-        ''
-          echo "${name} is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
-          exit 1
-        '';
+      );
+    };
 }

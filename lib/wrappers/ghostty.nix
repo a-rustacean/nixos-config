@@ -4,7 +4,7 @@
     {
       pkgs,
       runtimePkgs ? [ ],
-      config,
+      settings,
       theme ? null,
       fontPackage ? null,
     }:
@@ -36,7 +36,7 @@
           XDG_CONFIG_HOME = pkgs.symlinkJoin {
             name = "ghostty-config";
             paths = [
-              (pkgs.writeTextDir "ghostty/config" config)
+              (pkgs.writeTextDir "ghostty/config" settings)
             ]
             ++ lib.optional (theme != null) (pkgs.writeTextDir "ghostty/themes/nix-theme" theme);
           };

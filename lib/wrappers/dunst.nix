@@ -1,6 +1,5 @@
-{ inputs, lib, ... }:
+{ lib, wrapPackage, platformGuard, ... }:
 let
-  wrapPackage = inputs.wrapper-modules.lib.wrapPackage;
   inherit (lib)
     concatStringsSep
     mapAttrsToList
@@ -27,8 +26,10 @@ in
       settings,
       runtimePkgs ? [ ],
     }:
-    if pkgs.stdenv.hostPlatform.isLinux then
-      wrapPackage (
+    platformGuard {
+      inherit pkgs;
+      name = "dunst";
+      body = wrapPackage (
         { ... }: {
           inherit pkgs;
           package = pkgs.dunst;
@@ -37,14 +38,6 @@ in
             concatStringsSep "\n" (mapAttrsToList iniSection settings)
           );
         }
-      )
-    else
-      pkgs.runCommand "dunst-wrapper"
-        {
-          meta.platforms = lib.platforms.linux;
-        }
-        ''
-          echo "dunst is not supported on ${pkgs.stdenv.hostPlatform.system}" >&2
-          exit 1
-        '';
+      );
+    };
 }
