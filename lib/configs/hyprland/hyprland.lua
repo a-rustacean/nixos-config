@@ -137,7 +137,7 @@ hl.window_rule({
 
 hl.window_rule({
   match = {
-    class = "vesktop|com.mitchellh.ghostty",
+    class = "vesktop|com.mitchellh.ghostty|zen-beta",
   },
 
   opacity = "0.8",

@@ -1,4 +1,9 @@
-{ lib, wrapPackage, platformGuard, ... }:
+{
+  lib,
+  wrapPackage,
+  platformGuard,
+  ...
+}:
 let
   inherit (lib)
     concatStringsSep

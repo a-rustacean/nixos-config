@@ -1,4 +1,9 @@
-{ lib, wrapPackage, platformGuard, ... }:
+{
+  lib,
+  wrapPackage,
+  platformGuard,
+  ...
+}:
 let
   isHex = s: builtins.isString s && builtins.substring 0 1 s == "#";
   quoteHex = v: if isHex v then "'${v}'" else toString v;
