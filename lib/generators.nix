@@ -317,6 +317,31 @@ let
       lib.mapAttrsToList (name: value: "user_pref(\"${name}\", ${builtins.toJSON value});") settings
     );
 
+  toGhostty =
+    settings:
+    let
+      ghosttyValue =
+        v:
+        if v == true then
+          "true"
+        else if v == false then
+          "false"
+        else if builtins.isInt v then
+          toString v
+        else if builtins.isFloat v then
+          toString v
+        else if builtins.isList v then
+          concatStringsSep ", " (map ghosttyValue v)
+        else if builtins.isString v then
+          if builtins.match ".*[ \t\"#].*" v != null then ''"${v}"'' else v
+        else
+          builtins.toString v;
+    in
+    concatStringsSep "\n" (
+      mapAttrsToList (name: value: "${name} = ${ghosttyValue value}") settings
+    );
+
+
   toOMP =
     theme:
     let
@@ -359,5 +384,6 @@ in
     toOMP
     toGituiTheme
     toUserJs
+    toGhostty
     ;
 }

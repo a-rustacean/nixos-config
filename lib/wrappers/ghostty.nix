@@ -1,4 +1,4 @@
-{ lib, wrapPackage, ... }:
+{ lib, self, wrapPackage, ... }:
 {
   wrap =
     {
@@ -9,6 +9,8 @@
       fontPackage ? null,
     }:
     let
+      inherit (self.lib.generators) toGhostty;
+
       ghosttyPkg =
         if pkgs.stdenv.hostPlatform.isLinux then
           pkgs.ghostty
@@ -36,7 +38,7 @@
           XDG_CONFIG_HOME = pkgs.symlinkJoin {
             name = "ghostty-config";
             paths = [
-              (pkgs.writeTextDir "ghostty/config" settings)
+              (pkgs.writeTextDir "ghostty/config" (toGhostty settings))
             ]
             ++ lib.optional (theme != null) (pkgs.writeTextDir "ghostty/themes/nix-theme" theme);
           };
