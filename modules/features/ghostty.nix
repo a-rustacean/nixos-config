@@ -11,7 +11,10 @@
           font-size = 16;
           cursor-style = "block";
           mouse-hide-while-typing = true;
-          scroll-to-bottom = [ "keystroke" "output" ];
+          scroll-to-bottom = [
+            "keystroke"
+            "output"
+          ];
           confirm-close-surface = false;
           theme = "Catppuccin Mocha";
           env = "XDG_CONFIG_HOME=~/.config";
@@ -21,7 +24,10 @@
           window-padding-balance = true;
           window-padding-color = "extend";
           shell-integration = "detect";
-          shell-integration-features = [ "no-cursor" "sudo" ];
+          shell-integration-features = [
+            "no-cursor"
+            "sudo"
+          ];
         };
         fontPackage = pkgs.nerd-fonts.jetbrains-mono;
       };

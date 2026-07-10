@@ -337,10 +337,7 @@ let
         else
           builtins.toString v;
     in
-    concatStringsSep "\n" (
-      mapAttrsToList (name: value: "${name} = ${ghosttyValue value}") settings
-    );
-
+    concatStringsSep "\n" (mapAttrsToList (name: value: "${name} = ${ghosttyValue value}") settings);
 
   toOMP =
     theme:

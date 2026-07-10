@@ -1,4 +1,9 @@
-{ lib, self, wrapPackage, ... }:
+{
+  lib,
+  self,
+  wrapPackage,
+  ...
+}:
 {
   wrap =
     {

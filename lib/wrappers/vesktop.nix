@@ -1,4 +1,8 @@
-{ lib, mkStoreConfigWrapper, ... }:
+{
+  lib,
+  mkStoreConfigWrapper,
+  ...
+}:
 {
   wrap =
     {
