@@ -35,8 +35,7 @@
             ${lib.optionalString (builtins.dirOf dest != ".") ''
               mkdir -p "$DATA_DIR/${lib.escapeShellArg (builtins.dirOf dest)}"
             ''}
-            rm -f "$DATA_DIR/${lib.escapeShellArg dest}"
-            cp --no-preserve=mode "${src}" "$DATA_DIR/${lib.escapeShellArg dest}"
+            install -m 644 "${src}" "$DATA_DIR/${lib.escapeShellArg dest}"
           '') configFiles
         )}
 
