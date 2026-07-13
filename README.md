@@ -10,7 +10,6 @@ Every `.nix` under `modules/` is a flake-parts module, auto-imported by `import-
 - `lib/wrappers/` - wrapper definitions (pure Nix functions, auto-discovered)
 - `lib/generators.nix` - config serializers (`toHyprconf`, `toKDL`, `toSCFG`, `toOMP`, `toGituiTheme`, `toUserJs`, `toGhostty`)
 - `lib/catppuccin.nix` - Catppuccin Mocha color palette
-- `lib/mkStoreConfigWrapper.nix` - runtime config injection for programs that write to their config dir
 - `modules/lib-load.nix` - aggregates all `lib/` files into `self.lib.*`
 - `modules/hosts/nixos/` - single host `work`
 
@@ -28,8 +27,6 @@ Every `.nix` under `modules/` is a flake-parts module, auto-imported by `import-
 - **Editor**: Helix (Catppuccin, LSP/client config)
 - **Terminal**: Ghostty (Catppuccin, JetBrainsMono, shell integration)
 - **Shell**: Zsh (syntax highlighting, completions, oh-my-posh prompt)
-- **Browser**: Zen Browser (Catppuccin, policies, extensions)
-- **Discord**: Vesktop with Vencord
 - **Bar/Shell**: Quickshell (Hyprland widget shell)
 - **Notifications**: Dunst (Catppuccin Mocha)
 - **File browser**: Fzf (fuzzy finder for files/history/processes)

@@ -67,7 +67,6 @@
         (with self.packages.${pkgs.stdenv.hostPlatform.system}; [
           helix
           git
-          vesktop
           gitui
           cava
           btop
