@@ -6,12 +6,15 @@ A [dendritic](https://discourse.nixos.org/t/the-dendritic-pattern/61271) NixOS f
 
 Every `.nix` under `modules/` is a flake-parts module, auto-imported by `import-tree` - no manual wiring.
 
-- `modules/features/` - feature modules, each defines a NixOS module + wrapped package
+- `modules/parts.nix` - flake-parts `systems` list (hardcoded)
+- `modules/features/` - one directory per feature, each defines a NixOS module (self-installs its wrapped package into `systemPackages`) + wrapped package
+- `modules/system/` - system-level modules by category: `core/`, `audio/`, `network/`, `nix-ld/`, `systemTheme/`, `desktop/`
+- `modules/attrs/` - aggregator NixOS modules grouping related features
+- `modules/hosts/nixos/` - single host `nixos` (`default.nix` -> `nixosConfigurations.nixos`, `nixosConfiguration.nix` = host-specific bits)
 - `lib/wrappers/` - wrapper definitions (pure Nix functions, auto-discovered)
 - `lib/generators.nix` - config serializers (`toHyprconf`, `toKDL`, `toSCFG`, `toOMP`, `toGituiTheme`, `toUserJs`, `toGhostty`)
 - `lib/catppuccin.nix` - Catppuccin Mocha color palette
 - `modules/lib-load.nix` - aggregates all `lib/` files into `self.lib.*`
-- `modules/hosts/nixos/` - single host `work`
 
 ## Hard rules
 
@@ -24,6 +27,7 @@ Every `.nix` under `modules/` is a flake-parts module, auto-imported by `import-
 - **Theme**: Catppuccin Mocha
 - **Font**: JetBrainsMono Nerd Font
 - **WM**: Hyprland
+- **Display manager**: SDDM (Catppuccin, autologin; session spawns detached from the TTY so Ctrl+C can't kill it)
 - **Editor**: Helix (Catppuccin, LSP/client config)
 - **Terminal**: Ghostty (Catppuccin, JetBrainsMono, shell integration)
 - **Shell**: Zsh (syntax highlighting, completions, oh-my-posh prompt)
