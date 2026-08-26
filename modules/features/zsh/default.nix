@@ -1,5 +1,12 @@
 { self, lib, ... }:
 {
+  flake.nixosModules.zsh =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.zsh
+      ];
+    };
   perSystem =
     { pkgs, self', ... }:
     {

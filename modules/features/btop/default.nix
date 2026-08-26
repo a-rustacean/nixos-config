@@ -3,6 +3,13 @@ let
   ctp = self.lib.colors.catppuccin.mocha;
 in
 {
+  flake.nixosModules.btop =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.btop
+      ];
+    };
   perSystem =
     { pkgs, ... }:
     {

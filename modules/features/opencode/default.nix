@@ -1,5 +1,12 @@
 { self, ... }:
 {
+  flake.nixosModules.opencode =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.opencode
+      ];
+    };
   perSystem =
     { pkgs, ... }:
     {

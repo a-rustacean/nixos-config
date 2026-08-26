@@ -4,6 +4,13 @@ let
   hex = color: builtins.substring 1 6 color;
 in
 {
+  flake.nixosModules.hyprlock =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock
+      ];
+    };
   perSystem =
     { pkgs, ... }:
     {
@@ -30,7 +37,7 @@ in
 
           background = [
             {
-              path = "${../../lib/configs/wallpaper.jpg}";
+              path = "${../hyprpaper/wallpaper.jpg}";
               blur_passes = 4;
               blur_size = 8;
               contrast = 0.8;

@@ -30,6 +30,9 @@ in
         enableSSHSupport = true;
         pinentryPackage = pkgs.pinentry-gnome3;
       };
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.git
+      ];
     };
 
   perSystem =

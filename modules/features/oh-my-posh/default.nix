@@ -1,5 +1,12 @@
 { self, ... }:
 {
+  flake.nixosModules.oh-my-posh =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.oh-my-posh
+      ];
+    };
   perSystem = { pkgs, ... }: {
     packages.oh-my-posh = self.lib.wrappers.oh-my-posh.wrap {
       inherit pkgs;

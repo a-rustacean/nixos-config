@@ -1,5 +1,12 @@
 { self, ... }:
 {
+  flake.nixosModules.hyprpaper =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.hyprpaper
+      ];
+    };
   perSystem =
     { pkgs, ... }:
     {
@@ -11,7 +18,7 @@
             {
               fit_mode = "cover";
               monitor = "";
-              path = "${../../lib/configs/wallpaper.jpg}";
+              path = "${./wallpaper.jpg}";
             }
           ];
         };

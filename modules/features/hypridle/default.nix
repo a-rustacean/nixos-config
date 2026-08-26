@@ -1,5 +1,12 @@
 { self, ... }:
 {
+  flake.nixosModules.hypridle =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.hypridle
+      ];
+    };
   perSystem =
     {
       pkgs,

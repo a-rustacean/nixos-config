@@ -1,5 +1,12 @@
 { self, ... }:
 {
+  flake.nixosModules.hyprsunset =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.hyprsunset
+      ];
+    };
   perSystem =
     { pkgs, ... }:
     {
