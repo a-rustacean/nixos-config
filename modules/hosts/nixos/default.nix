@@ -1,7 +1,10 @@
 { self, inputs, ... }:
 {
-  # TODO: replace the hardcoded `work`
-  flake.nixosConfigurations.work = inputs.nixpkgs.lib.nixosSystem {
-    modules = [ self.nixosModules.config ];
+  flake.nixosConfigurations.nixos = inputs.nixpkgs.lib.nixosSystem {
+    modules = with self.nixosModules; [
+      nixosConfiguration
+      desktop
+      development
+    ];
   };
 }
