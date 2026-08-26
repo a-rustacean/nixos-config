@@ -1,7 +1,7 @@
 { self, ... }:
 {
   flake.nixosModules.hyprland =
-    { pkgs, config, ... }:
+    { pkgs, ... }:
     {
       programs.hyprland = {
         enable = true;
@@ -10,51 +10,7 @@
         portalPackage = self.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
 
-      services.greetd = {
-        enable = true;
-        settings = rec {
-          initial_session = {
-            command = "${pkgs.dbus}/bin/dbus-run-session ${config.programs.hyprland.package}/bin/start-hyprland";
-            # TODO: no-hardcode
-            user = "dilshad";
-          };
-          default_session = initial_session;
-        };
-      };
-
-      environment.systemPackages = [
-        (pkgs.catppuccin-gtk.override {
-          variant = "mocha";
-          accents = [ "blue" ];
-          size = "standard";
-        })
-        (pkgs.catppuccin-kde.override {
-          flavour = [ "mocha" ];
-          accents = [ "blue" ];
-        })
-        pkgs.libsForQt5.qtstyleplugin-kvantum
-        pkgs.adw-gtk3
-        pkgs.libsForQt5.qt5ct
-        pkgs.qt6Packages.qt6ct
-      ];
-
-      environment.variables.QT_QPA_PLATFORMTHEME = "kvantum";
-
-      environment.etc."xdg/Kvantum/kvantum.kvconfig".text = ''
-        [General]
-        theme=Catppuccin-Mocha-Blue
-      '';
-
-      programs.dconf.profiles.user.databases = [
-        {
-          settings = {
-            "org/gnome/desktop/interface" = {
-              color-scheme = "prefer-dark";
-              gtk-theme = "catppuccin-mocha-blue-standard";
-            };
-          };
-        }
-      ];
+      services.displayManager.defaultSession = "hyprland";
     };
 
   perSystem =
@@ -75,7 +31,7 @@
           wl-clipboard
         ];
         flags = {
-          "--config" = "${../../lib/configs/hyprland}/hyprland.lua";
+          "--config" = "${./.}/hyprland.lua";
         };
         env = {
           HYPRLAND_PROGRAM_GHOSTTY = lib.getExe self'.packages.ghostty;
