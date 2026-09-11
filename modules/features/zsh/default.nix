@@ -58,6 +58,7 @@
             HISTFILE="$HOME/.zsh_history"
 
             export EDITOR=${lib.getExe self'.packages.helix}
+            export XDG_CONFIG_HOME="$HOME/.config"
           '';
         };
     };

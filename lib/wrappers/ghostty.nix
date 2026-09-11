@@ -40,6 +40,7 @@
         package = ghosttyPkg;
         inherit runtimePkgs;
         env = {
+          # IMPORTANT: This is reverted to "$HOME/.config" in zsh config.
           XDG_CONFIG_HOME = pkgs.symlinkJoin {
             name = "ghostty-config";
             paths = [

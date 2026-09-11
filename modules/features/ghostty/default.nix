@@ -24,7 +24,6 @@
           ];
           confirm-close-surface = false;
           theme = "Catppuccin Mocha";
-          env = "XDG_CONFIG_HOME=~/.config";
           background-blur = true;
           window-padding-x = 10;
           window-padding-y = 10;
