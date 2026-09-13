@@ -44,7 +44,10 @@ in
         in
         self.lib.wrappers.git.wrap {
           inherit pkgs;
-          runtimePkgs = [ pkgs.gnupg ];
+          runtimePkgs = [
+            pkgs.gnupg
+            pkgs.git-lfs
+          ];
           settings = settings // {
             filter.lfs = {
               required = true;
