@@ -59,6 +59,8 @@
 
             export EDITOR=${lib.getExe self'.packages.helix}
             export XDG_CONFIG_HOME="$HOME/.config"
+
+            [[ -d "$HOME/.cargo/bin" ]] && path+=("$HOME/.cargo/bin")
           '';
         };
     };
