@@ -1,4 +1,4 @@
-{ self, ... }: {
+{ self, lib, ... }: {
   flake.nixosModules.ghostty =
     { pkgs, ... }:
     {
@@ -13,9 +13,10 @@
         inherit pkgs;
         runtimePkgs = [ self'.packages.zsh ];
         settings = {
+          command = "${lib.getExe self'.packages.zsh} -l";
           language = "en";
           font-family = "JetBrainsMono Nerd Font";
-          font-size = 16;
+          font-size = 20;
           cursor-style = "block";
           mouse-hide-while-typing = true;
           scroll-to-bottom = [
@@ -24,6 +25,9 @@
           ];
           confirm-close-surface = false;
           theme = "Catppuccin Mocha";
+          background-opacity = 0.90;
+          background-opacity-cells = true;
+          macos-titlebar-style = "hidden";
           background-blur = true;
           window-padding-x = 10;
           window-padding-y = 10;
