@@ -13,6 +13,7 @@
       packages.helix = self.lib.wrappers.helix.wrap {
         inherit pkgs;
         runtimePkgs = with pkgs; [
+          prettier
           typescript-language-server
           vscode-langservers-extracted
           bash-language-server
@@ -73,6 +74,65 @@
               tabpad = "all";
             };
           };
+        };
+        languages = {
+          language = [
+            {
+              name = "html";
+              formatter = {
+                command = "${pkgs.prettier}/bin/prettier";
+                args = [
+                  "--parser"
+                  "html"
+                ];
+              };
+              auto-format = true;
+            }
+            {
+              name = "css";
+              formatter = {
+                command = "${pkgs.prettier}/bin/prettier";
+                args = [
+                  "--parser"
+                  "css"
+                ];
+              };
+              auto-format = true;
+            }
+            {
+              name = "javascript";
+              formatter = {
+                command = "${pkgs.prettier}/bin/prettier";
+                args = [
+                  "--parser"
+                  "javascript"
+                ];
+              };
+              auto-format = true;
+            }
+            {
+              name = "typescript";
+              formatter = {
+                command = "${pkgs.prettier}/bin/prettier";
+                args = [
+                  "--parser"
+                  "typescript"
+                ];
+              };
+              auto-format = true;
+            }
+            {
+              name = "tsx";
+              formatter = {
+                command = "${pkgs.prettier}/bin/prettier";
+                args = [
+                  "--parser"
+                  "typescript"
+                ];
+              };
+              auto-format = true;
+            }
+          ];
         };
       };
     };
