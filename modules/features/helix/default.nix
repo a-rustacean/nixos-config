@@ -33,6 +33,7 @@
             ];
             cursor-shape.insert = "bar";
             file-picker.hidden = false;
+            soft-wrap.enable = true;
 
             statusline = {
               left = [
