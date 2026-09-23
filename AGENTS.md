@@ -6,6 +6,7 @@
 ## Key commands
 - Build: `nix build .#<name>` (packages are per-feature, see `modules/features/`)
 - Apply: `sudo nixos-rebuild switch --flake .#nixos`
+- ISO: `nix build .#iso` (live CD of the desktop, defined in `modules/hosts/iso/`; per-system, e.g. `.#packages.x86_64-linux.iso` to build for another arch)
 - Format: `nix fmt` (uses `nixfmt-tree`)
 - Update flake: `nix flake update`
 
