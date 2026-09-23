@@ -1,0 +1,68 @@
+name: Build live ISOs
+
+on:
+  workflow_dispatch:
+    inputs:
+      x86_64-linux:
+        description: Build the x86_64-linux ISO
+        type: boolean
+        default: true
+      aarch64-linux:
+        description: Build the aarch64-linux ISO
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: iso-build
+  cancel-in-progress: true
+
+jobs:
+  iso:
+    name: Build ISO (${{ matrix.arch }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x86_64-linux
+            enabled: ${{ inputs.x86_64-linux }}
+            need-qemu: false
+          - arch: aarch64-linux
+            enabled: ${{ inputs.aarch64-linux }}
+            need-qemu: true
+    if: ${{ matrix.enabled }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # aarch64-linux has no native GitHub-hosted runner here, so QEMU
+      # user-mode (binfmt) emulates it on the x86_64 runner.
+      - name: Set up QEMU for aarch64
+        if: matrix.need-qemu
+        uses: docker/setup-qemu-action@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+        with:
+          extra-conf: |
+            ${{ matrix.need-qemu && 'extra-platforms = aarch64-linux' || '' }}
+
+      - name: Cache Nix store
+        uses: DeterminateSystems/magic-nix-cache-action@v14
+
+      - name: Build ISO
+        run: |
+          nix build --print-build-logs .#packages.${{ matrix.arch }}.iso -o result
+
+      - name: Upload ISO
+        uses: actions/upload-artifact@v7
+        with:
+          name: nixos-hyprland-${{ matrix.arch }}
+          path: result/iso/*.iso
+          retention-days: 30
+          compression-level: 0
+          if-no-files-found: error
