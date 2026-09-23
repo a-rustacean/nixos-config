@@ -39,6 +39,13 @@
         inherit pkgs;
         package = ghosttyPkg;
         inherit runtimePkgs;
+        runShell = lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+          ''
+            if ${pkgs.systemd}/bin/systemd-detect-virt --vm --quiet; then
+              export LIBGL_ALWAYS_SOFTWARE=1
+            fi
+          ''
+        ];
         env = {
           # IMPORTANT: This is reverted to "$HOME/.config" in zsh config.
           XDG_CONFIG_HOME = pkgs.symlinkJoin {
