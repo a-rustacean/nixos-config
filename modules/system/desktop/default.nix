@@ -19,6 +19,7 @@
         hypridle
         hyprsunset
         hyprlauncher
+        prismlauncher
       ];
     in
     {
