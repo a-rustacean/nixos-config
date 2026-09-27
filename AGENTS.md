@@ -13,7 +13,6 @@
 ## Architecture (Dendritic pattern)
 This repo follows the **dendritic pattern** — every `.nix` file under `modules/` is a flake-parts module, auto-imported by `import-tree`. No manual import wiring; just create a file and it's loaded.
 - **`modules/parts.nix`** — flake-parts `systems` list (hardcoded, like the reference `dendritic-nixos`).
-- **`modules/empty.nix`** — template example module showing the `moduleWithSystem` + `perSystem` pattern.
 - **`modules/features/`** — one directory per feature (`modules/features/<name>/default.nix`). Config files live beside `default.nix` (e.g. `hyprland.lua`, `shell.qml`, `wallpaper.jpg`). Each defines:
   - a `flake.nixosModules.<name>` NixOS module that adds the wrapped package to `environment.systemPackages` (self-install)
   - a `perSystem.packages.<name>` wrapped package via `self.lib.wrappers.<name>`
