@@ -15,7 +15,7 @@
       packages.quickshell = self.lib.wrappers.quickshell.wrap {
         inherit pkgs;
         configDir = "${./config}";
-        env.XDG_DATA_DIRS = "${pkgs.nerd-fonts.jetbrains-mono}/share";
+        env.XDG_DATA_DIRS = "${pkgs.nerd-fonts.jetbrains-mono}/share:/run/current-system/sw/share:/nix/var/nix/profiles/default/share";
       };
     };
 }
