@@ -12,6 +12,7 @@
         zsh
         ghostty
         fastfetch
+        fetch
         btop
         cava
         oh-my-posh

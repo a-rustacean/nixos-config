@@ -11,6 +11,7 @@
               self'.packages.ghostty
               self'.packages.helix
               self'.packages.oh-my-posh
+              self'.packages.fetch
             ];
           }
           ''
